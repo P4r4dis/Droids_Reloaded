@@ -22,7 +22,7 @@ clean					:
 							@$(MAKE) $(CLEAN) -C $(EX0_TST_PATH)
 
 fclean					:	clean
-							$(RM) $(NAME) $(TEST_NAME)
+							$(RM) $(NAME) $(TEST_NAME_EX0)
 							@$(MAKE) $(FCLEAN) -C $(EX0_TST_PATH)
 							@$(MAKE) $(FCLEAN) -C $(EX0_PATH)
 
