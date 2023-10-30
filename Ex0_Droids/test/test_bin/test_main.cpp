@@ -53,5 +53,5 @@ Test(Droids, test_Droid_copy_Constructor, .init = redirect_all_stdout)
     cr_assert_str_eq(d.getStatus()->data(), "Standing by");
     
     cr_assert_stdout_eq_str("Droid 'Avenger' Activated\n"
-    "Droid 'Avenger' Activated\n");
+    "Droid 'Avenger' Activated, Memory Dumped\n");
 }

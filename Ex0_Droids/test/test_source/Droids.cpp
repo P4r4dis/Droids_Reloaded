@@ -17,7 +17,7 @@ Droids::Droids(const Droids& obj) : _Id(obj._Id), _Energy(obj._Energy),
                                     _Attack(obj._Attack), _Toughness(obj._Toughness),
                                     _Status(obj._Status)
 {
-    std::cout << "Droid '" << _Id << "' Activated" << std::endl;
+    std::cout << "Droid '" << _Id << "' Activated, Memory Dumped" << std::endl;
 }
 
 std::string     Droids::getId(void) const
