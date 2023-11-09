@@ -3,14 +3,14 @@ G++           = g++
 TEST_SRC_PATH = ./test_source
 TEST_INC_PATH = ./test_include
 TEST_BIN_PATH = ./test_bin
-TEST_SRC      = $(TEST_SRC_PATH)/Droids.cpp
+TEST_SRC      = $(TEST_SRC_PATH)/Droid.cpp
 
 NAME          = test_Ex0
 #############################################
 
 INCFLAGS     += -I$(TEST_INC_PATH)
-CRITFLAGS    += --coverage -lcriterion
-CPPFLAGS     += -Wall -Wextra -Werror $(INCFLAGS) $(CRITFLAGS) -W -std=c++23 -Wfatal-errors
+CRITFLAGS    +=  --coverage -lcriterion
+CPPFLAGS     += -Wall -Wextra -Werror $(INCFLAGS) $(CRITFLAGS) -W -std=c++23 -Wfatal-errors -g
 
 SRCS         = $(TEST_BIN_PATH)/test_main.cpp \
                $(TEST_SRC)
@@ -18,6 +18,7 @@ SRCS         = $(TEST_BIN_PATH)/test_main.cpp \
 OBJS         = $(SRCS:.cpp=.o)
 OBJS_GCDA    = $(SRCS:.cpp=.gcda)
 OBJS_GCNO    = $(SRCS:.cpp=.gcno)
+COVERAGE	 = ../../coverage.* 
 
 all: $(NAME)
 
@@ -27,7 +28,7 @@ $(NAME): $(OBJS)
 RM = rm -rf
 
 clean:
-	$(RM) $(OBJS) $(OBJS_GCDA) $(OBJS_GCNO)
+	$(RM) $(OBJS) $(OBJS_GCDA) $(OBJS_GCNO) $(COVERAGE)
 
 fclean: clean
 	$(RM) $(NAME)

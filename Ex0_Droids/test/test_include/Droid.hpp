@@ -1,13 +1,15 @@
-#ifndef         __DROIDS_HPP__
-    #define     __DROIDS_HPP__
+#ifndef         __DROID_HPP__
+    #define     __DROID_HPP__
 
 #include <iostream>
-class           Droids
+class           Droid
 {
     public:
-        Droids(void);
-        Droids(std::string Id);
-        Droids(const Droids& obj);
+        Droid(void);
+        Droid(std::string Id);
+        Droid(const Droid& obj);
+
+        ~Droid(void);
 
         std::string         getId(void) const;
         size_t              getEnergy(void) const;
@@ -22,4 +24,4 @@ class           Droids
         std::string         *_Status;
 };
 
-#endif //       !__DROIDS_HPP__
+#endif //       !__DROID_HPP__

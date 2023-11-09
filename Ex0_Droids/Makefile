@@ -14,7 +14,7 @@ INCFLAGS	+=	-I $(INC_PATH)
 CPPFLAGS	+= -Wall -Wextra -Werror $(INCFLAGS) -W -std=c++23
 
 
-SRCS		=	$(SRC_PATH)/Droids.cpp \
+SRCS		=	$(SRC_PATH)/Droid.cpp \
 				$(BIN_PATH)/main.cpp
 
 SRC_TEST	=	$(TST_PATH)/$(NAME)_test.cpp

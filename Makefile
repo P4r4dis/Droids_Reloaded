@@ -12,7 +12,7 @@ TEST_NAME_EX0 			= 	test_$(NAME_EX0)
 
 #################################################
 
-OBJS					=	$(SRCS:.cpp=.o)
+# OBJS					=	$(SRCS:.cpp=.o)
 CLEAN					=	clean
 FCLEAN					=	fclean
 RM						=	rm -rf
@@ -35,6 +35,7 @@ Ex0 					: 	fclean
 test_run_Ex0			:	fclean
 							@$(MAKE) -C $(EX0_TST_PATH)
 							$(EX0_TST_PATH)/$(TEST_NAME_EX0)
+							gcovr --exclude-unreachable-branches --exclude-throw-branches -r . --txt --html-details coverage.html							
 
 tests_run				:	fclean
 							@$(MAKE) tests_run_Ex0
