@@ -74,3 +74,16 @@ void            Droid::setStatus(const std::string &status)
     else
         *_Status = status;
 }
+
+Droid           &Droid::operator=(const Droid &rhs)
+{
+    if (this != &rhs)
+    {
+        _Id = rhs._Id;
+        _Energy = rhs._Energy;
+        if (_Status)
+            delete _Status;
+        _Status = new std::string(rhs._Status->data());
+    }
+    return *this;
+}

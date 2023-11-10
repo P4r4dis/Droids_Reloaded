@@ -2,6 +2,7 @@
     #define     __DROID_HPP__
 
 #include <iostream>
+#include <algorithm>
 class           Droid
 {
     public:
@@ -20,6 +21,8 @@ class           Droid
         void                setId(std::string id);
         void                setEnergy(size_t energy);
         void                setStatus(const std::string &status);
+
+        Droid               &operator=(const Droid &rhs);
     private:
         std::string         _Id;
         size_t              _Energy;

@@ -90,3 +90,23 @@ Test(Droid, test_Droid_setStatus, .init = redirect_all_stdout)
     d.~Droid();
     d.setStatus("Updated");
 }
+
+Test(Droid, test_Droid_operator_equal_overloading, .init = redirect_all_stdout)
+{
+    Droid d;
+    Droid d1("Avanger");
+
+    cr_assert(d.getId() != d1.getId());
+    cr_assert(d.getEnergy() == d1.getEnergy());
+    cr_assert(d.getAttack() == d1.getAttack());
+    cr_assert(d.getToughness() == d1.getToughness());
+    cr_assert(d.getStatus()->data() != d1.getStatus()->data());
+
+    d = d1;
+
+    cr_assert(d.getId() == d1.getId());
+    cr_assert(d.getEnergy() == d1.getEnergy());
+    cr_assert(d.getAttack() == d1.getAttack());
+    cr_assert(d.getToughness() == d1.getToughness());
+    cr_assert_str_eq(d.getStatus()->data(), d1.getStatus()->data());
+}
