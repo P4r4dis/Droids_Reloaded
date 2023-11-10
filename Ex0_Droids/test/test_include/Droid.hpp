@@ -2,7 +2,7 @@
     #define     __DROID_HPP__
 
 #include <iostream>
-#include <algorithm>
+#include <ostream>
 class           Droid
 {
     public:
@@ -31,4 +31,5 @@ class           Droid
         std::string         *_Status;
 };
 
+std::ostream                &operator<<(std::ostream &ostream, const Droid &obj);
 #endif //       !__DROID_HPP__

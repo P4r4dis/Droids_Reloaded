@@ -87,3 +87,10 @@ Droid           &Droid::operator=(const Droid &rhs)
     }
     return *this;
 }
+
+std::ostream    &operator<<(std::ostream &ostream, const Droid &obj)
+{
+    return ostream     << "Droid '" << obj.getId() << "', " 
+                << obj.getStatus()->data() << ", "
+                << obj.getEnergy();
+}

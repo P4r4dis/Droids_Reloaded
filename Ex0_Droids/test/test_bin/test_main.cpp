@@ -110,3 +110,16 @@ Test(Droid, test_Droid_operator_equal_overloading, .init = redirect_all_stdout)
     cr_assert(d.getToughness() == d1.getToughness());
     cr_assert_str_eq(d.getStatus()->data(), d1.getStatus()->data());
 }
+
+Test(Droid, test_Droid_left_stream_operator_overloading, .init = redirect_all_stdout)
+{
+    {
+        Droid d("Avenger");
+
+        std::cout << d << std::endl;
+    }
+    cr_assert_stdout_eq_str(
+        "Droid 'Avenger' Activated\n"
+        "Droid 'Avenger', Standing by, 50\n"
+        "Droid 'Avenger' Destroyed\n");
+}
