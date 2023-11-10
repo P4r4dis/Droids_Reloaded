@@ -16,6 +16,10 @@ class           Droid
         size_t              getAttack(void) const;
         size_t              getToughness(void) const;
         std::string         *getStatus(void) const;
+
+        void                setId(std::string id);
+        void                setEnergy(size_t energy);
+        void                setStatus(const std::string &status);
     private:
         std::string         _Id;
         size_t              _Energy;

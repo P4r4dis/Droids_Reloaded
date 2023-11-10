@@ -61,3 +61,32 @@ Test(Droid, test_Droid_copy_Constructor, .init = redirect_all_stdout)
     "Droid 'Avenger' Destroyed\n"
     "Droid 'Avenger' Destroyed\n");
 }
+
+Test(Droid, test_Droid_setId, .init = redirect_all_stdout)
+{
+    Droid   d;
+
+    cr_assert(d.getId() == "");
+    d.setId("Droid");
+    cr_assert(d.getId() == "Droid");
+}
+
+Test(Droid, test_Droid_setEnergy, .init = redirect_all_stdout)
+{
+    Droid   d;
+
+    cr_assert(d.getEnergy() == 50);
+    d.setEnergy(100);
+    cr_assert(d.getEnergy() == 100);
+}
+
+Test(Droid, test_Droid_setStatus, .init = redirect_all_stdout)
+{
+    Droid   d;
+
+    cr_assert_str_eq(d.getStatus()->data(), "Standing by");
+    d.setStatus("Pending");
+    cr_assert_str_eq(d.getStatus()->data(), "Pending");
+    d.~Droid();
+    d.setStatus("Updated");
+}

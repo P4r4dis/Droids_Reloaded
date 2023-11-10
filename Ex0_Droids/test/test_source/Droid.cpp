@@ -56,3 +56,21 @@ std::string     *Droid::getStatus(void) const
 {
     return _Status;
 }
+
+void            Droid::setId(std::string id)
+{
+    _Id = id;
+}
+
+void            Droid::setEnergy(size_t energy)
+{
+    _Energy = energy;
+}
+
+void            Droid::setStatus(const std::string &status)
+{
+    if (!_Status)
+        _Status = new std::string(status);
+    else
+        *_Status = status;
+}
