@@ -123,3 +123,23 @@ Test(Droid, test_Droid_left_stream_operator_overloading, .init = redirect_all_st
         "Droid 'Avenger', Standing by, 50\n"
         "Droid 'Avenger' Destroyed\n");
 }
+
+Test(Droid, test_Droid_reload_with_left_stream_operator_overloading, .init = redirect_all_stdout)
+{
+    {
+        Droid d("Avenger");
+        size_t Durasel = 200;
+        cr_assert(d.getEnergy() == 50);
+        d << Durasel;
+        cr_assert(d.getEnergy() == 100);
+        cr_assert(Durasel == 150);
+        std::cout << d << std::endl;
+        d.setEnergy(200);
+        d << Durasel;
+        cr_assert(d.getEnergy() == 100);
+    }
+    cr_assert_stdout_eq_str(
+        "Droid 'Avenger' Activated\n"
+        "Droid 'Avenger', Standing by, 100\n"
+        "Droid 'Avenger' Destroyed\n");
+}

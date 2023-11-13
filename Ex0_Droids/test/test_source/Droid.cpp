@@ -94,3 +94,24 @@ std::ostream    &operator<<(std::ostream &ostream, const Droid &obj)
                 << obj.getStatus()->data() << ", "
                 << obj.getEnergy();
 }
+
+Droid           &Droid::operator<<(size_t &reload)
+{
+    size_t      diff;
+    size_t      max;
+    size_t      min;
+
+    diff = 0;
+    max = 100;
+    min = 0;
+    if (_Energy >= min && _Energy < max)
+    {
+        diff = max - _Energy;
+        _Energy += diff;
+		reload -= diff;
+    }
+
+    if (_Energy > max)
+        _Energy = max;
+    return *this;
+}

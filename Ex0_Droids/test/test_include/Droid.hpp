@@ -23,6 +23,7 @@ class           Droid
         void                setStatus(const std::string &status);
 
         Droid               &operator=(const Droid &rhs);
+        Droid               &operator<<(size_t &reload);
     private:
         std::string         _Id;
         size_t              _Energy;
@@ -31,5 +32,8 @@ class           Droid
         std::string         *_Status;
 };
 
-std::ostream                &operator<<(std::ostream &ostream, const Droid &obj);
+std::ostream                &operator<<(std::ostream &ostream,
+                                        const Droid &obj);
+
+
 #endif //       !__DROID_HPP__
