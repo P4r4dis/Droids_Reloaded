@@ -20,7 +20,7 @@ class           Droid
 
         void                setId(std::string id);
         void                setEnergy(size_t energy);
-        void                setStatus(const std::string &status);
+        void                setStatus(const std::string *status);
 
         Droid               &operator=(const Droid &rhs);
         Droid               &operator<<(size_t &reload);
