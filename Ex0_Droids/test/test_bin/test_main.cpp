@@ -157,3 +157,17 @@ Test(Droid, test_Droid_equal_equal_operator_overloading, .init = redirect_all_st
         "Droid '' Destroyed\n"
         "Droid '' Destroyed\n");
 }
+
+Test(Droid, test_Droid_different_operator_overloading, .init = redirect_all_stdout)
+{
+    {
+        Droid d;
+        Droid d2("Avenger");
+        cr_assert_neq(d, d2);
+    }
+    cr_assert_stdout_eq_str(
+        "Droid '' Activated\n"
+        "Droid 'Avenger' Activated\n"
+        "Droid 'Avenger' Destroyed\n"
+        "Droid '' Destroyed\n");
+}
