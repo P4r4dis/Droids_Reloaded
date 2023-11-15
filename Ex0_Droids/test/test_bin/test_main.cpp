@@ -143,3 +143,17 @@ Test(Droid, test_Droid_reload_with_left_stream_operator_overloading, .init = red
         "Droid 'Avenger', Standing by, 100\n"
         "Droid 'Avenger' Destroyed\n");
 }
+
+Test(Droid, test_Droid_equal_equal_operator_overloading, .init = redirect_all_stdout)
+{
+    {
+        Droid d;
+        Droid d2;
+        cr_assert_eq(d, d);
+    }
+    cr_assert_stdout_eq_str(
+        "Droid '' Activated\n"
+        "Droid '' Activated\n"
+        "Droid '' Destroyed\n"
+        "Droid '' Destroyed\n");
+}
