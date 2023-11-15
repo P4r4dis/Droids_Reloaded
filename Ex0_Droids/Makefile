@@ -1,7 +1,7 @@
 G++			=	g++
 ##############################################
 BIN_PATH	=	./bin
-SRC_PATH	=	./src
+SRC_PATH	=	./source
 TST_PATH	=	./test
 INC_PATH	=	./include
 
