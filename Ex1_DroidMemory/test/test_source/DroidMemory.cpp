@@ -2,7 +2,6 @@
 
 DroidMemory::DroidMemory(void) :    Fingerprint(random()), Exp(0)
 {
-    // std::cout << "DroidMemory '" << Fingerprint << "', " << Exp << std::endl;
 }
 
 DroidMemory::~DroidMemory(void)
@@ -41,4 +40,25 @@ DroidMemory     &DroidMemory::operator+=(const DroidMemory &rhs)
     Exp += rhs.Exp;
     Fingerprint ^= rhs.Fingerprint;
     return *this;
+}
+
+DroidMemory     &DroidMemory::operator<<(const DroidMemory &rhs)
+{
+    Exp += rhs.Exp;
+    Fingerprint ^= rhs.Fingerprint;
+    return *this;
+}
+
+DroidMemory     &DroidMemory::operator>>(DroidMemory &lhs) const
+{
+    lhs.Exp += Exp;
+    lhs.Fingerprint ^= Fingerprint;
+    return lhs;
+}
+
+std::ostream    &operator<<(std::ostream &ostream, const DroidMemory &rhs)
+{
+    return ostream  << "DroidMemory '" << rhs.getFingerprint() 
+                    << "', " << rhs.getExp();
+
 }

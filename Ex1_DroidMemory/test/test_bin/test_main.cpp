@@ -189,7 +189,7 @@ Test(Droid, test_Droid_different_operator_overloading, .init = redirect_all_stdo
 //         "Droid 'Rex' Destroyed\n");
 // }
 
-Test(DroidMemory, test_Droid_constructor_without_parameters)//, .init = redirect_all_stdout)
+Test(DroidMemory, test_DroidMemory_constructor_without_parameters)//, .init = redirect_all_stdout)
 {
     {
         DroidMemory mem1;
@@ -204,7 +204,7 @@ Test(DroidMemory, test_Droid_constructor_without_parameters)//, .init = redirect
     }
 }
 
-Test(DroidMemory, test_Droid_Plus_Equal_operator_overloading)//, .init = redirect_all_stdout)
+Test(DroidMemory, test_DroidMemory_Plus_Equal_operator_overloading)//, .init = redirect_all_stdout)
 {
     {
         DroidMemory mem1;
@@ -226,7 +226,7 @@ Test(DroidMemory, test_Droid_Plus_Equal_operator_overloading)//, .init = redirec
     }
 }
 
-Test(DroidMemory, test_Droid_Equal_operator_overloading)//, .init = redirect_all_stdout)
+Test(DroidMemory, test_DroidMemory_Equal_operator_overloading)//, .init = redirect_all_stdout)
 {
     {
         DroidMemory mem1;
@@ -237,4 +237,23 @@ Test(DroidMemory, test_Droid_Equal_operator_overloading)//, .init = redirect_all
         cr_assert(mem2.getExp() == mem1.getExp());
         cr_assert(mem2.getFingerprint() == mem1.getFingerprint());
     }
+}
+
+Test(DroidMemory, test_DroidMemory_left_insertion__operator_overloading, .init = redirect_all_stdout)
+{
+    {
+        DroidMemory mem1;
+        mem1 += 42;
+
+        DroidMemory mem2 = mem1;
+        std::cout << mem1 << std::endl;
+
+        DroidMemory mem3;
+        mem3 << mem1;
+        mem3 >> mem1;
+        mem3 << mem1;
+        std::cout << mem3 << std::endl;
+    }
+    cr_assert_stdout_eq_str("DroidMemory '1804289357', 42\n"
+    "DroidMemory '1804289357', 126\n");
 }
