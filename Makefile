@@ -1,7 +1,7 @@
 G++						=	g++
 ###############################################
 EX0_PATH 				= 	./Ex0_Droids
-EX0_SRC_PATH			=	./Ex0_Droids/src
+EX0_SRC_PATH			=	./Ex0_Droids/source
 EX0_TST_PATH			=	./Ex0_Droids/test
 EX0_INC_PATH			=	./Ex0_Droids/include
 NAME_EX0				=	Ex0
@@ -12,7 +12,7 @@ TEST_NAME_EX0 			= 	test_$(NAME_EX0)
 
 #################################################
 EX1_PATH 				= 	./Ex1_DroidMemory
-EX1_SRC_PATH			=	./Ex1_DroidMemory/src
+EX1_SRC_PATH			=	./Ex1_DroidMemory/source
 EX1_TST_PATH			=	./Ex1_DroidMemory/test
 EX1_INC_PATH			=	./Ex1_DroidMemory/include
 NAME_EX1				=	Ex1
@@ -36,6 +36,7 @@ clean					:
 
 fclean					:	clean
 							$(RM) $(NAME) $(TEST_NAME_EX0)
+							$(RM) $(NAME) $(TEST_NAME_EX1)
 							@$(MAKE) $(FCLEAN) -C $(EX0_TST_PATH)
 							@$(MAKE) $(FCLEAN) -C $(EX0_PATH)
 							@$(MAKE) $(FCLEAN) -C $(EX1_TST_PATH)
@@ -57,8 +58,8 @@ test_run_Ex0			:	fclean
 							gcovr --exclude-unreachable-branches --exclude-throw-branches -r . --txt --html-details coverage.html
 
 test_run_Ex1			:	fclean
-							@$(MAKE) -C $(EX0_TST_PATH)
-							$(EX0_TST_PATH)/$(TEST_NAME_EX0)
+							@$(MAKE) -C $(EX1_TST_PATH)
+							$(EX1_TST_PATH)/$(TEST_NAME_EX1)
 							gcovr --exclude-unreachable-branches --exclude-throw-branches -r . --txt --html-details coverage.html
 
 tests_run				:	fclean

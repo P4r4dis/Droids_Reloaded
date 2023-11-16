@@ -6,6 +6,7 @@
 #include <signal.h>
 
 #include "../test_include/Droid.hpp"
+#include "../test_include/DroidMemory.hpp"
 
 void    redirect_all_stdout(void) {
     cr_redirect_stdout();
@@ -147,6 +148,7 @@ Test(Droid, test_Droid_different_operator_overloading, .init = redirect_all_stdo
 {
     {
         Droid d("Avenger");
+        d.setStatus(new std::string("Pending"));
         Droid d2("Avenger");
         cr_assert_neq(d, d2);
     }
@@ -186,3 +188,19 @@ Test(Droid, test_Droid_different_operator_overloading, .init = redirect_all_stdo
 //         "Droid 'Avenger' Destroyed\n"
 //         "Droid 'Rex' Destroyed\n");
 // }
+
+Test(DroidMemory, test_Droid_constructor_without_parameters)//, .init = redirect_all_stdout)
+{
+    {
+        DroidMemory mem1;
+
+        cr_assert(mem1.getFingerprint() > 0 && mem1.getFingerprint() <= SIZE_MAX);
+        mem1.setFingerprint(1804289357);
+        cr_assert(mem1.getFingerprint() == 1804289357);
+
+        cr_assert(mem1.getExp() == 0);
+        mem1.setExp(42);
+        cr_assert(mem1.getExp() == 42);
+
+    }
+}
