@@ -6,7 +6,6 @@
 class           Droid
 {
     public:
-        Droid(void);
         Droid(std::string Id);
         Droid(const Droid& obj);
 

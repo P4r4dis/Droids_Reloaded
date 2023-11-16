@@ -1,11 +1,5 @@
 #include "../test_include/Droid.hpp"
 
-Droid::Droid(void) :    _Id(""), _Energy(50), _Attack(25), _Toughness(15),
-                        _Status(new std::string("Standing by"))
-{
-    std::cout << "Droid '" << _Id << "' Activated" << std::endl;
-}
-
 Droid::Droid(std::string Id) :  _Id(Id), _Energy(50), _Attack(25),
                                 _Toughness(15),
                                 _Status(new std::string("Standing by"))
