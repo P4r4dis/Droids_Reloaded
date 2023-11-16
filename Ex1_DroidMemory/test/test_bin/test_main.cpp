@@ -225,3 +225,16 @@ Test(DroidMemory, test_Droid_Plus_Equal_operator_overloading)//, .init = redirec
         cr_assert(mem1.getFingerprint() == result2);
     }
 }
+
+Test(DroidMemory, test_Droid_Equal_operator_overloading)//, .init = redirect_all_stdout)
+{
+    {
+        DroidMemory mem1;
+        DroidMemory mem2;
+        mem1 += 42;
+
+        mem2 = mem1;
+        cr_assert(mem2.getExp() == mem1.getExp());
+        cr_assert(mem2.getFingerprint() == mem1.getFingerprint());
+    }
+}
