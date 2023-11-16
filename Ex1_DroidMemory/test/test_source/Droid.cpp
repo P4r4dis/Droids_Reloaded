@@ -112,11 +112,7 @@ Droid           &Droid::operator<<(size_t &reload)
 
 bool            Droid::operator==(const Droid &rhs) const
 {
-    // if ((_Id == rhs._Id) && (_Energy == rhs._Energy) && (*_Status == *rhs._Status))
-    //     return true;
-    // else
-    //     return false;
-    return (_Id == rhs._Id) && (_Energy == rhs._Energy) && (*_Status == *rhs._Status);
+    return (*_Status == *rhs._Status);
 }
 
 bool            Droid::operator!=(const Droid &rhs) const
