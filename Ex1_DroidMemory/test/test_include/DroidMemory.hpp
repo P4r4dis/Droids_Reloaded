@@ -14,7 +14,9 @@ class                       DroidMemory
 
         void                setFingerprint(size_t fingerPrint);
         void                setExp(size_t exp);
-        
+
+        DroidMemory         &operator+=(const size_t &rhs);
+        DroidMemory         &operator+=(const DroidMemory &rhs);
     private:
         size_t              Fingerprint;
         size_t              Exp;

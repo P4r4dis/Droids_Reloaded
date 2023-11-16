@@ -201,6 +201,27 @@ Test(DroidMemory, test_Droid_constructor_without_parameters)//, .init = redirect
         cr_assert(mem1.getExp() == 0);
         mem1.setExp(42);
         cr_assert(mem1.getExp() == 42);
+    }
+}
 
+Test(DroidMemory, test_Droid_Plus_Equal_operator_overloading)//, .init = redirect_all_stdout)
+{
+    {
+        DroidMemory mem1;
+
+        mem1 += 42;
+        cr_assert(mem1.getExp() == 42);
+        cr_assert(mem1.getFingerprint() == 1804289357);
+
+        DroidMemory mem2;
+        DroidMemory mem3;
+        mem3.setExp(42);
+        size_t result = (mem2.getFingerprint() ^ mem3.getFingerprint());
+        mem2 += mem3;
+        cr_assert(mem2.getFingerprint() == result);
+        
+        size_t result2 = (mem1.getFingerprint() ^ mem2.getFingerprint() ^ mem3.getFingerprint());
+        mem1 += mem2 += mem3;
+        cr_assert(mem1.getFingerprint() == result2);
     }
 }

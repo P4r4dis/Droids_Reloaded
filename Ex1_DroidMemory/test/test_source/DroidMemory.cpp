@@ -28,3 +28,17 @@ void            DroidMemory::setExp(size_t exp)
 {
     Exp = exp;
 }
+
+DroidMemory     &DroidMemory::operator+=(const size_t &rhs)
+{
+    Exp += rhs;
+    Fingerprint ^= rhs;
+    return *this;
+}
+
+DroidMemory     &DroidMemory::operator+=(const DroidMemory &rhs)
+{
+    Exp += rhs.Exp;
+    Fingerprint ^= rhs.Fingerprint;
+    return *this;
+}
