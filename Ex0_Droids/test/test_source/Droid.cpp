@@ -69,10 +69,8 @@ void            Droid::setEnergy(size_t energy)
 
 void            Droid::setStatus(const std::string *status)
 {
-    if (!_Status && _Status != nullptr)
-        _Status = new std::string(*status);
-    else
-        *_Status = *status;
+    delete _Status;
+    _Status = new std::string(*status);
 }
 
 Droid           &Droid::operator=(const Droid &rhs)

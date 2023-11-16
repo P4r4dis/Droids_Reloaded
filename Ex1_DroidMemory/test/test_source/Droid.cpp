@@ -1,4 +1,4 @@
-#include "../include/Droid.hpp"
+#include "../test_include/Droid.hpp"
 
 Droid::Droid(void) :    _Id(""), _Energy(50), _Attack(25), _Toughness(15),
                         _Status(new std::string("Standing by"))
@@ -69,8 +69,10 @@ void            Droid::setEnergy(size_t energy)
 
 void            Droid::setStatus(const std::string *status)
 {
-    delete _Status;
-    _Status = new std::string(*status);
+    if (!_Status && _Status != nullptr)
+        _Status = new std::string(*status);
+    else
+        *_Status = *status;
 }
 
 Droid           &Droid::operator=(const Droid &rhs)

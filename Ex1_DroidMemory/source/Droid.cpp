@@ -21,7 +21,6 @@ Droid::Droid(const Droid& obj) :    _Id(obj._Id), _Energy(obj._Energy),
 
 }
 
-
 Droid::~Droid(void)
 {
     if (_Status)
@@ -69,8 +68,10 @@ void            Droid::setEnergy(size_t energy)
 
 void            Droid::setStatus(const std::string *status)
 {
-    delete _Status;
-    _Status = new std::string(*status);
+    if (!_Status && _Status != nullptr)
+        _Status = new std::string(*status);
+    else
+        *_Status = *status;
 }
 
 Droid           &Droid::operator=(const Droid &rhs)
@@ -120,7 +121,8 @@ bool            Droid::operator==(const Droid &rhs) const
     //     return true;
     // else
     //     return false;
-    return (_Id == rhs._Id) && (_Energy == rhs._Energy) && (*_Status == *rhs._Status);
+    return (_Id == rhs._Id) && (_Energy == rhs._Energy) 
+            && (*_Status == *rhs._Status);
 }
 
 bool            Droid::operator!=(const Droid &rhs) const

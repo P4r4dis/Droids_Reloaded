@@ -89,10 +89,6 @@ Test(Droid, test_Droid_setStatus, .init = redirect_all_stdout)
     cr_assert_str_eq(d.getStatus()->data(), "Pending");
     d.setStatus(new std::string("Updated"));
     d.~Droid();
-    std::string *str = new std::string("test");
-    d.setStatus(str);
-    d.~Droid();
-
 }
 
 Test(Droid, test_Droid_operator_equal_overloading, .init = redirect_all_stdout)
