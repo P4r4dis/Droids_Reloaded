@@ -257,3 +257,22 @@ Test(DroidMemory, test_DroidMemory_left_insertion__operator_overloading, .init =
     cr_assert_stdout_eq_str("DroidMemory '1804289357', 42\n"
     "DroidMemory '1804289357', 126\n");
 }
+
+Test(DroidMemory, test_DroidMemory_Plus_operator_overloading)//, .init = redirect_all_stdout)
+{
+    {
+        DroidMemory mem1;
+        size_t var = 42;
+        mem1 = mem1 + var + var;
+        cr_assert(mem1.getExp() == 84);
+        size_t result = mem1.getFingerprint() ^ mem1.getFingerprint();
+        mem1.setFingerprint(mem1.getFingerprint() ^ mem1.getFingerprint());
+        cr_assert(mem1.getFingerprint() == result);
+
+        DroidMemory mem2;
+        size_t result2 = mem2.getFingerprint() ^ mem1.getFingerprint() ^ mem1.getFingerprint();
+        mem2 = mem2 + mem1 + mem1;
+        cr_assert(mem2.getExp() == 168);
+        cr_assert(mem2.getFingerprint() == result2);
+    }
+}

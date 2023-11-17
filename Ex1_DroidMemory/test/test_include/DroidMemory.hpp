@@ -19,6 +19,8 @@ class                       DroidMemory
         DroidMemory         &operator+=(const DroidMemory &rhs);
         DroidMemory         &operator<<(const DroidMemory &rhs);
         DroidMemory         &operator>>(DroidMemory &lhs) const;
+        DroidMemory         &operator+(const DroidMemory &rhs) const;
+        DroidMemory         &operator+(const size_t &rhs) const;
     private:
         size_t              Fingerprint;
         size_t              Exp;

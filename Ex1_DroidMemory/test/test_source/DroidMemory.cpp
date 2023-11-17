@@ -56,6 +56,24 @@ DroidMemory     &DroidMemory::operator>>(DroidMemory &lhs) const
     return lhs;
 }
 
+DroidMemory     &DroidMemory::operator+(const DroidMemory &rhs) const
+{
+    DroidMemory* mem = new DroidMemory(*this);  // Copy the current object
+    mem->Exp = mem->Exp + rhs.Exp; // Use the += operator to modify the copy
+    mem->Fingerprint = mem->Fingerprint ^ rhs.Fingerprint;
+    return *mem;
+}
+
+DroidMemory     &DroidMemory::operator+(const size_t &rhs) const
+{
+    DroidMemory* mem = new DroidMemory(*this);  // Copy the current object
+    mem->Exp = mem->Exp + rhs;
+    mem->Fingerprint = mem->Fingerprint ^ rhs;
+    return *mem;
+}
+
+
+
 std::ostream    &operator<<(std::ostream &ostream, const DroidMemory &rhs)
 {
     return ostream  << "DroidMemory '" << rhs.getFingerprint() 
