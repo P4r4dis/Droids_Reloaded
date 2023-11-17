@@ -276,3 +276,24 @@ Test(DroidMemory, test_DroidMemory_Plus_operator_overloading)//, .init = redirec
         cr_assert(mem2.getFingerprint() == result2);
     }
 }
+
+Test(DroidMemory, test_DroidMemory_right_insertion__operator_overloading, .init = redirect_all_stdout)
+{
+    {
+        DroidMemory mem1;
+        mem1 += 42;
+
+        DroidMemory mem2 = mem1;
+        std::cout << mem1 << std::endl;
+
+        DroidMemory mem3;
+        mem3 << mem1;
+        mem3 >> mem1;
+        mem3 << mem1;
+        std::cout << mem3 << std::endl;
+        std::cout << mem1 << std::endl;
+    }
+    cr_assert_stdout_eq_str("DroidMemory '1804289357', 42\n"
+    "DroidMemory '1804289357', 126\n"
+    "DroidMemory '846930886', 84\n");
+}
