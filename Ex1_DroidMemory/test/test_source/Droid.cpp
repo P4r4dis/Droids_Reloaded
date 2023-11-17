@@ -12,7 +12,6 @@ Droid::Droid(const Droid& obj) :    _Id(obj._Id), _Energy(obj._Energy),
                                    _Status(new std::string(obj._Status->data()))
 {
     std::cout << "Droid '" << _Id << "' Activated, Memory Dumped" << std::endl;
-
 }
 
 
@@ -82,9 +81,9 @@ Droid           &Droid::operator=(const Droid &rhs)
 
 std::ostream    &operator<<(std::ostream &ostream, const Droid &obj)
 {
-    return ostream     << "Droid '" << obj.getId() << "', " 
-                << obj.getStatus()->data() << ", "
-                << obj.getEnergy();
+    return ostream  << "Droid '" << obj.getId() << "', " 
+                    << obj.getStatus()->data() << ", "
+                    << obj.getEnergy();
 }
 
 Droid           &Droid::operator<<(size_t &reload)

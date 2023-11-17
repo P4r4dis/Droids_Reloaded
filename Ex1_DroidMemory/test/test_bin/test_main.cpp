@@ -159,35 +159,35 @@ Test(Droid, test_Droid_different_operator_overloading, .init = redirect_all_stdo
         "Droid 'Avenger' Destroyed\n");
 }
 
-// Test(Droid, test_Droid_main_function, .init = redirect_all_stdout)
-// {
-//     {
-//         Droid d("Avenger");
-//         Droid d1("Avenger");
-//         size_t Durasel = 200;
+Test(Droid, test_Droid_main_function, .init = redirect_all_stdout)
+{
+    {
+        Droid d("Avenger");
+        Droid d1("Avenger");
+        size_t Durasel = 200;
 
-//         std::cout << d <<std::endl;
-//         std::cout << d1 <<std::endl;
-//         d = d1;
-//         d.setStatus(new std::string("Kill Kill Kill!"));
-//         d << Durasel;
-//         std::cout << d << "--" << Durasel << std::endl;
-//         Droid d2 = d;
-//         d.setId("Rex");
-//         std::cout << (d2 != d) << std::endl;
-//     }
-//     cr_assert_stdout_eq_str(
-//         "Droid 'Avenger' Activated\n"
-//         "Droid 'Avenger' Activated\n"
-//         "Droid 'Avenger', Standing by, 50\n"
-//         "Droid 'Avenger', Standing by, 50\n"
-//         "Droid 'Avenger', Kill Kill Kill!, 100--150\n"
-//         "Droid 'Avenger' Activated, Memory Dumped\n"
-//         "1\n"
-//         "Droid 'Avenger' Destroyed\n"
-//         "Droid 'Avenger' Destroyed\n"
-//         "Droid 'Rex' Destroyed\n");
-// }
+        std::cout << d <<std::endl;
+        std::cout << d1 <<std::endl;
+        d = d1;
+        d.setStatus(new std::string("Kill Kill Kill!"));
+        d << Durasel;
+        std::cout << d << "--" << Durasel << std::endl;
+        Droid d2 = d;
+        d.setId("Rex");
+        std::cout << (d2 != d) << std::endl;
+    }
+    cr_assert_stdout_eq_str(
+        "Droid 'Avenger' Activated\n"
+        "Droid 'Avenger' Activated\n"
+        "Droid 'Avenger', Standing by, 50\n"
+        "Droid 'Avenger', Standing by, 50\n"
+        "Droid 'Avenger', Kill Kill Kill!, 100--150\n"
+        "Droid 'Avenger' Activated, Memory Dumped\n"
+        "0\n"
+        "Droid 'Avenger' Destroyed\n"
+        "Droid 'Avenger' Destroyed\n"
+        "Droid 'Rex' Destroyed\n");
+}
 
 Test(DroidMemory, test_DroidMemory_constructor_without_parameters)//, .init = redirect_all_stdout)
 {
@@ -278,6 +278,27 @@ Test(DroidMemory, test_DroidMemory_Plus_operator_overloading)//, .init = redirec
 }
 
 Test(DroidMemory, test_DroidMemory_right_insertion__operator_overloading, .init = redirect_all_stdout)
+{
+    {
+        DroidMemory mem1;
+        mem1 += 42;
+
+        DroidMemory mem2 = mem1;
+        std::cout << mem1 << std::endl;
+
+        DroidMemory mem3;
+        mem3 << mem1;
+        mem3 >> mem1;
+        mem3 << mem1;
+        std::cout << mem3 << std::endl;
+        std::cout << mem1 << std::endl;
+    }
+    cr_assert_stdout_eq_str("DroidMemory '1804289357', 42\n"
+    "DroidMemory '1804289357', 126\n"
+    "DroidMemory '846930886', 84\n");
+}
+
+Test(DroidMemory, test_DroidMemory_mainFunction, .init = redirect_all_stdout)
 {
     {
         DroidMemory mem1;

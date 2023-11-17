@@ -78,5 +78,4 @@ std::ostream    &operator<<(std::ostream &ostream, const DroidMemory &rhs)
 {
     return ostream  << "DroidMemory '" << rhs.getFingerprint() 
                     << "', " << rhs.getExp();
-
 }
