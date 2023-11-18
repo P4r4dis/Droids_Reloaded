@@ -90,6 +90,12 @@ bool            DroidMemory::operator==(const DroidMemory &rhs) const
 {
     return (Exp == rhs.Exp) && (Fingerprint == rhs.Fingerprint);
 }
+
+bool            DroidMemory::operator!=(const DroidMemory &rhs) const
+{
+    return !(this == &rhs);
+}
+
 std::ostream    &operator<<(std::ostream &ostream, const DroidMemory &rhs)
 {
     return ostream  << "DroidMemory '" << rhs.getFingerprint() 

@@ -342,6 +342,19 @@ Test(DroidMemory, test_DroidMemory_Equal_Equal_operator_overloading)//, .init = 
     }
 }
 
+Test(DroidMemory, test_DroidMemory_Different_operator_overloading)//, .init = redirect_all_stdout)
+{
+    {
+        DroidMemory mem1;
+        DroidMemory mem2;
+
+        mem1 = mem2;
+        cr_assert_eq(mem1, mem2);
+        mem1 += 42;
+        cr_assert_neq(mem1, mem2);
+    }
+}
+
 
 Test(DroidMemory, test_DroidMemory_mainFunction, .init = redirect_all_stdout)
 {
