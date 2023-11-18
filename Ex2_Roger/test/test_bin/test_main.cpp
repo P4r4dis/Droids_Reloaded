@@ -355,6 +355,16 @@ Test(DroidMemory, test_DroidMemory_Different_operator_overloading)//, .init = re
     }
 }
 
+Test(DroidMemory, test_DroidMemory_lower_operator_overloading)//, .init = redirect_all_stdout)
+{
+    {
+        DroidMemory mem1;
+        DroidMemory mem2;
+
+        mem1 += 42;
+        cr_assert_lt(mem2, mem1);
+    }
+}
 
 Test(DroidMemory, test_DroidMemory_mainFunction, .init = redirect_all_stdout)
 {
