@@ -26,6 +26,7 @@ class                       DroidMemory
         bool                operator==(const DroidMemory &rhs) const;
         bool                operator!=(const DroidMemory &rhs) const;
         bool                operator<(const DroidMemory &rhs) const;
+        bool                operator>(const DroidMemory &rhs) const;
     private:
         size_t              Fingerprint;
         size_t              Exp;
