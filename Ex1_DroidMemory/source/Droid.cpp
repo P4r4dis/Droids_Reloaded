@@ -1,10 +1,4 @@
-#include "../include/Droid.hpp"
-
-Droid::Droid(void) :    _Id(""), _Energy(50), _Attack(25), _Toughness(15),
-                        _Status(new std::string("Standing by"))
-{
-    std::cout << "Droid '" << _Id << "' Activated" << std::endl;
-}
+#include "../test_include/Droid.hpp"
 
 Droid::Droid(std::string Id) :  _Id(Id), _Energy(50), _Attack(25),
                                 _Toughness(15),
@@ -18,8 +12,8 @@ Droid::Droid(const Droid& obj) :    _Id(obj._Id), _Energy(obj._Energy),
                                    _Status(new std::string(obj._Status->data()))
 {
     std::cout << "Droid '" << _Id << "' Activated, Memory Dumped" << std::endl;
-
 }
+
 
 Droid::~Droid(void)
 {
@@ -68,10 +62,8 @@ void            Droid::setEnergy(size_t energy)
 
 void            Droid::setStatus(const std::string *status)
 {
-    if (!_Status && _Status != nullptr)
-        _Status = new std::string(*status);
-    else
-        *_Status = *status;
+    delete _Status;
+    _Status = new std::string(*status);
 }
 
 Droid           &Droid::operator=(const Droid &rhs)
@@ -89,9 +81,9 @@ Droid           &Droid::operator=(const Droid &rhs)
 
 std::ostream    &operator<<(std::ostream &ostream, const Droid &obj)
 {
-    return ostream     << "Droid '" << obj.getId() << "', " 
-                << obj.getStatus()->data() << ", "
-                << obj.getEnergy();
+    return ostream  << "Droid '" << obj.getId() << "', " 
+                    << obj.getStatus()->data() << ", "
+                    << obj.getEnergy();
 }
 
 Droid           &Droid::operator<<(size_t &reload)
@@ -117,12 +109,7 @@ Droid           &Droid::operator<<(size_t &reload)
 
 bool            Droid::operator==(const Droid &rhs) const
 {
-    // if ((_Id == rhs._Id) && (_Energy == rhs._Energy) && (*_Status == *rhs._Status))
-    //     return true;
-    // else
-    //     return false;
-    return (_Id == rhs._Id) && (_Energy == rhs._Energy) 
-            && (*_Status == *rhs._Status);
+    return (*_Status == *rhs._Status);
 }
 
 bool            Droid::operator!=(const Droid &rhs) const

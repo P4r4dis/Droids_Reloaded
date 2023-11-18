@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <ostream>
+#include "DroidMemory.hpp"
 class           Droid
 {
     public:
@@ -16,10 +17,12 @@ class           Droid
         size_t              getAttack(void) const;
         size_t              getToughness(void) const;
         std::string         *getStatus(void) const;
+        DroidMemory         *getBattleData(void) const;
 
         void                setId(std::string id);
         void                setEnergy(size_t energy);
         void                setStatus(const std::string *status);
+        void                setBattleData(const DroidMemory *BattleData);
 
         Droid               &operator=(const Droid &rhs);
         Droid               &operator<<(size_t &reload);
@@ -31,6 +34,7 @@ class           Droid
         const size_t        _Attack;
         const size_t        _Toughness;
         std::string         *_Status;
+        DroidMemory         *BattleData;
 };
 
 std::ostream                &operator<<(std::ostream &ostream,

@@ -159,6 +159,17 @@ Test(Droid, test_Droid_different_operator_overloading, .init = redirect_all_stdo
         "Droid 'Avenger' Destroyed\n");
 }
 
+Test(Droid, test_Droid_battleData, .init = redirect_all_stdout)
+{
+    {
+        Droid d("Avenger");
+
+        cr_assert(not(zero(d.getBattleData())));
+        cr_assert(d.getBattleData()->getExp() == 0);
+    }
+
+}
+
 Test(Droid, test_Droid_main_function, .init = redirect_all_stdout)
 {
     {
