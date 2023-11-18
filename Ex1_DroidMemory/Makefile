@@ -15,6 +15,7 @@ CPPFLAGS	+= -Wall -Wextra -Werror $(INCFLAGS) -W -std=c++23
 
 
 SRCS		=	$(SRC_PATH)/Droid.cpp \
+				$(SRC_PATH)/DroidMemory.cpp \
 				$(BIN_PATH)/main.cpp
 
 SRC_TEST	=	$(TST_PATH)/$(NAME)_test.cpp

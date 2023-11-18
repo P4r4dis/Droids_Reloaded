@@ -1,15 +1,17 @@
-#include "../test_include/Droid.hpp"
+#include "../include/Droid.hpp"
 
 Droid::Droid(std::string Id) :  _Id(Id), _Energy(50), _Attack(25),
                                 _Toughness(15),
-                                _Status(new std::string("Standing by"))
+                                _Status(new std::string("Standing by")),
+                                BattleData(new DroidMemory())
 {
     std::cout << "Droid '" << _Id << "' Activated" << std::endl;
 }
 
 Droid::Droid(const Droid& obj) :    _Id(obj._Id), _Energy(obj._Energy),
                                     _Attack(obj._Attack), _Toughness(obj._Toughness),
-                                   _Status(new std::string(obj._Status->data()))
+                                    _Status(new std::string(obj._Status->data())),
+                                    BattleData(new DroidMemory())
 {
     std::cout << "Droid '" << _Id << "' Activated, Memory Dumped" << std::endl;
 }
@@ -48,6 +50,11 @@ size_t          Droid::getToughness(void) const
 std::string     *Droid::getStatus(void) const
 {
     return _Status;
+}
+
+DroidMemory     *Droid::getBattleData(void) const
+{
+    return BattleData;
 }
 
 void            Droid::setId(std::string id)

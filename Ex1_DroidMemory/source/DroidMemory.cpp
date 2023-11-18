@@ -1,4 +1,4 @@
-#include "../test_include/DroidMemory.hpp"
+#include "../include/DroidMemory.hpp"
 
 DroidMemory::DroidMemory(void) :    Fingerprint(random()), Exp(0)
 {
