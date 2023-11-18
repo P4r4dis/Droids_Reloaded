@@ -328,6 +328,21 @@ Test(DroidMemory, test_DroidMemory_right_insertion__operator_overloading, .init 
     "DroidMemory '846930886', 84\n");
 }
 
+Test(DroidMemory, test_DroidMemory_Equal_Equal_operator_overloading)//, .init = redirect_all_stdout)
+{
+    {
+        DroidMemory mem1;
+        mem1 += 42;
+
+        DroidMemory mem2;
+
+        cr_assert(not(eq(type(DroidMemory), mem1, mem2)));
+        mem2 = mem1;
+        cr_assert_eq(mem1, mem2);
+    }
+}
+
+
 Test(DroidMemory, test_DroidMemory_mainFunction, .init = redirect_all_stdout)
 {
     {
