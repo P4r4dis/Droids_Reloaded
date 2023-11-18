@@ -403,6 +403,24 @@ Test(DroidMemory, test_DroidMemory_upperOrEqual_operator_overloading)//, .init =
     }
 }
 
+Test(DroidMemory, test_DroidMemory_comparison_operators)
+{
+    DroidMemory mem1;
+    DroidMemory mem2;
+    
+    mem1 += 42;
+
+    cr_assert_lt(mem2, mem1);  // mem2 < mem1
+    cr_assert_leq(mem2, mem1); // mem2 <= mem1
+    cr_assert_gt(mem1, mem2);  // mem1 > mem2
+    cr_assert_geq(mem1, mem2); // mem1 >= mem2
+
+    cr_assert_lt(mem2, 50);     // mem2 < 50
+    cr_assert_leq(mem2, 50);    // mem2 <= 50
+    cr_assert_gt(mem1, 30);     // mem1 > 30
+    cr_assert_geq(mem1, 30);    // mem1 >= 30
+}
+
 Test(DroidMemory, test_DroidMemory_mainFunction, .init = redirect_all_stdout)
 {
     {

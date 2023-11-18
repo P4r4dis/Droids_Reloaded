@@ -116,6 +116,26 @@ bool            DroidMemory::operator>=(const DroidMemory &rhs) const
     return (Exp >= rhs.Exp);
 }
 
+bool            DroidMemory::operator<(const size_t &rhs) const
+{
+    return Exp < rhs;
+}
+
+bool            DroidMemory::operator>(const size_t &rhs) const
+{
+    return !(Exp < rhs);
+}
+
+bool            DroidMemory::operator<=(const size_t &rhs) const
+{
+    return Exp <= rhs;
+}
+
+bool            DroidMemory::operator>=(const size_t &rhs) const
+{
+    return (Exp >= rhs);
+}
+
 std::ostream    &operator<<(std::ostream &ostream, const DroidMemory &rhs)
 {
     return ostream  << "DroidMemory '" << rhs.getFingerprint() 
