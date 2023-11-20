@@ -35,10 +35,14 @@ Test(Droid, test_Droid_copy_Constructor, .init = redirect_all_stdout)
         Droid  d0("Avenger");
         Droid  d(d0);
 
-        cr_assert(d.getId() == "Avenger");
-        cr_assert(d.getEnergy() == 50);
-        cr_assert(d.getAttack() == 25);
-        cr_assert(d.getToughness() == 15);
+        cr_assert(d.getId() == d0.getId());
+        cr_assert(d.getEnergy() == d0.getEnergy());
+        cr_assert(d.getAttack() == d0.getAttack());
+        cr_assert(d.getToughness() == d0.getToughness());
+        cr_assert_str_eq(d.getStatus()->data(), d0.getStatus()->data());
+        cr_assert(d.getBattleData()->getExp() == d0.getBattleData()->getExp());
+        cr_assert(d.getBattleData()->getFingerprint() == d0.getBattleData()->getFingerprint());
+
         cr_assert(d.getStatus()->compare("Standing by") == 0);
         cr_assert_str_eq(d.getStatus()->data(), "Standing by");
     }
@@ -95,6 +99,9 @@ Test(Droid, test_Droid_operator_equal_overloading, .init = redirect_all_stdout)
     cr_assert(d.getAttack() == d1.getAttack());
     cr_assert(d.getToughness() == d1.getToughness());
     cr_assert_str_eq(d.getStatus()->data(), d1.getStatus()->data());
+    cr_assert(d.getBattleData()->getExp() == d1.getBattleData()->getExp());
+    cr_assert(d.getBattleData()->getFingerprint() == d1.getBattleData()->getFingerprint());
+
 }
 
 Test(Droid, test_Droid_left_stream_operator_overloading, .init = redirect_all_stdout)
@@ -159,12 +166,17 @@ Test(Droid, test_Droid_different_operator_overloading, .init = redirect_all_stdo
         "Droid 'Avenger' Destroyed\n");
 }
 
-Test(Droid, test_Droid_battleData, .init = redirect_all_stdout)
+Test(Droid, test_Droid_battleData)//, .init = redirect_all_stdout)
 {
     {
         Droid d("Avenger");
 
         cr_assert(not(zero(d.getBattleData())));
+        cr_assert(d.getBattleData()->getExp() == 0);
+        d.getBattleData()->setExp(42);
+        cr_assert(d.getBattleData()->getExp() == 42);
+        DroidMemory *mem = new DroidMemory();
+        d.setBattleData(mem);
         cr_assert(d.getBattleData()->getExp() == 0);
     }
 

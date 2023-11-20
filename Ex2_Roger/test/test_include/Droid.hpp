@@ -22,7 +22,7 @@ class           Droid
         void                setId(std::string id);
         void                setEnergy(size_t energy);
         void                setStatus(const std::string *status);
-        void                setBattleData(const DroidMemory *BattleData);
+        void                setBattleData(const DroidMemory *newBattleData);
 
         Droid               &operator=(const Droid &rhs);
         Droid               &operator<<(size_t &reload);

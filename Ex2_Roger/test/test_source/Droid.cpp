@@ -9,9 +9,10 @@ Droid::Droid(std::string Id) :  _Id(Id), _Energy(50), _Attack(25),
 }
 
 Droid::Droid(const Droid& obj) :    _Id(obj._Id), _Energy(obj._Energy),
-                                    _Attack(obj._Attack), _Toughness(obj._Toughness),
+                                    _Attack(obj._Attack),
+                                    _Toughness(obj._Toughness),
                                     _Status(new std::string(obj._Status->data())),
-                                    BattleData(new DroidMemory())
+                                    BattleData(new DroidMemory(*obj.BattleData))
 {
     std::cout << "Droid '" << _Id << "' Activated, Memory Dumped" << std::endl;
 }
@@ -23,8 +24,14 @@ Droid::~Droid(void)
     {
         delete _Status;
         _Status = nullptr;
-        std::cout << "Droid '" << _Id << "' Destroyed" << std::endl;
     }
+    if(BattleData)
+    {
+        delete BattleData;
+        BattleData = nullptr;
+    }
+    std::cout << "Droid '" << _Id << "' Destroyed" << std::endl;
+
 }
 
 std::string     Droid::getId(void) const
@@ -73,15 +80,24 @@ void            Droid::setStatus(const std::string *status)
     _Status = new std::string(*status);
 }
 
+void            Droid::setBattleData(const DroidMemory *newBattleData)
+{
+    delete BattleData;
+    BattleData = new DroidMemory(*newBattleData);
+}
+
 Droid           &Droid::operator=(const Droid &rhs)
 {
     if (this != &rhs)
     {
         _Id = rhs._Id;
-        _Energy = rhs._Energy;
         if (_Status)
             delete _Status;
         _Status = new std::string(rhs._Status->data());
+        if (BattleData)
+            delete BattleData;
+        BattleData = new DroidMemory(*rhs.BattleData);
+
     }
     return *this;
 }
