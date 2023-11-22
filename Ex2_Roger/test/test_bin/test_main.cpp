@@ -122,6 +122,7 @@ Test(Droid, test_Droid_reload_with_left_stream_operator_overloading, .init = red
     {
         Droid d("Avenger");
         size_t Durasel = 200;
+        
         cr_assert(d.getEnergy() == 50);
         d << Durasel;
         cr_assert(d.getEnergy() == 100);
@@ -166,7 +167,7 @@ Test(Droid, test_Droid_different_operator_overloading, .init = redirect_all_stdo
         "Droid 'Avenger' Destroyed\n");
 }
 
-Test(Droid, test_Droid_battleData)//, .init = redirect_all_stdout)
+Test(Droid, test_Droid_battleData, .init = redirect_all_stdout)
 {
     {
         Droid d("Avenger");
@@ -180,6 +181,36 @@ Test(Droid, test_Droid_battleData)//, .init = redirect_all_stdout)
         cr_assert(d.getBattleData()->getExp() == 0);
     }
 
+}
+
+Test(Droid, test_Droid_operator_brackets_overloading, .init = redirect_all_stdout)
+{
+    {
+        Droid d("rudolf");
+        size_t DuraSell = 40;
+
+        d << DuraSell;
+
+        d.setStatus(new std::string("having some reset"));
+        d(new std::string("take a coffee"), 20);
+        std::cout << d << std::endl;
+
+        d.setEnergy(0);
+        d.setStatus(new std::string("having some reset"));
+        d(new std::string("take a coffee"), 20);
+        std::cout << d << std::endl;
+
+        d.setEnergy(100);
+        d.setStatus(new std::string("having some reset"));
+        d(new std::string("take a coffee"), 20);
+        std::cout << d << std::endl;
+    }
+    cr_assert_stdout_eq_str(
+        "Droid 'rudolf' Activated\n"
+        "Droid 'rudolf', take a coffee Failed!, 80\n"
+        "Droid 'rudolf', Battery Low, 0\n"
+        "Droid 'rudolf', take a coffee Completed!, 90\n"
+        "Droid 'rudolf' Destroyed\n");
 }
 
 Test(Droid, test_Droid_main_function, .init = redirect_all_stdout)

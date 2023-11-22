@@ -28,6 +28,7 @@ class           Droid
         Droid               &operator<<(size_t &reload);
         bool                operator==(const Droid &rhs) const;
         bool                operator!=(const Droid &rhs) const;
+        bool                operator()(const std::string *task, size_t expRequired);
     private:
         std::string         _Id;
         size_t              _Energy;

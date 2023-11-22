@@ -113,21 +113,36 @@ Droid           &Droid::operator<<(size_t &reload)
 {
     size_t      diff;
     size_t      max;
-    size_t      min;
 
     diff = 0;
     max = 100;
-    min = 0;
-    if (_Energy >= min && _Energy < max)
-    {
-        diff = max - _Energy;
-        _Energy += diff;
-		reload -= diff;
-    }
+    diff = reload > max ? max - _Energy : reload;
+    _Energy += diff;
+    reload -= diff;
+    // if (_Energy > max)
+    //     _Energy = max;
 
-    if (_Energy > max)
-        _Energy = max;
     return *this;
+    // Better version
+    // size_t      diff;
+    // size_t      max;
+    // size_t      min;
+
+    // max = 100;
+    // min = 0;
+
+	// if (_Energy < 100) {
+	// 	diff = std::min(max - _Energy, reload);
+	// 	_Energy += diff;
+	// 	reload -= diff;
+	// }
+
+    // if (_Energy > max)
+    //     _Energy = max;
+    // else if (_Energy < min)
+    //     _Energy = min;
+
+    // return *this;
 }
 
 bool            Droid::operator==(const Droid &rhs) const
@@ -138,4 +153,67 @@ bool            Droid::operator==(const Droid &rhs) const
 bool            Droid::operator!=(const Droid &rhs) const
 {
     return !(*this == rhs);
+}
+
+bool            Droid::operator()(const std::string *task, size_t expRequired)
+{
+    // size_t taskEnergy = 10;
+    // if (_Energy < taskEnergy)
+    // {
+    //     if (_Status)
+    //         delete _Status;
+    //     _Status = new std::string("Battery Low");
+    //     _Energy = 0;
+    //     return false;
+    // }
+    // else if (_Energy >= taskEnergy && getBattleData()->getExp() >= expRequired)
+    // {
+    //     _Energy -= taskEnergy;
+    //     if(_Status)
+    //         delete _Status;
+    //     _Status = new std::string(*task + " Completed!");
+    //     getBattleData()->setExp(getBattleData()->getExp() + (expRequired / 2));
+    //     return true;
+    // }
+    // else
+    // {
+    //     std::cout << "Enery = " << _Energy << std::endl;
+    //     _Energy -= taskEnergy;
+    //     if (_Status)
+    //         delete _Status;
+    //     _Status = new std::string(*task + " Failed!");
+    //     getBattleData()->setExp(getBattleData()->getExp() + expRequired);            
+    //     return false;
+    // }
+    size_t taskEnergyCost = 10;
+
+    if (_Energy < taskEnergyCost)
+    {
+        if (_Status)
+            delete _Status;
+        _Status = new std::string("Battery Low");
+        _Energy = 0;
+        return false;
+    }
+    else
+    {
+        _Energy -= taskEnergyCost;
+
+        if (getBattleData()->getExp() >= expRequired)
+        {
+            if (_Status)
+                delete _Status;
+            _Status = new std::string(*task + " Completed!");
+            getBattleData()->setExp(getBattleData()->getExp() + (expRequired / 2));
+            return true;
+        }
+        else
+        {
+            if (_Status)
+                delete _Status;
+            _Status = new std::string(*task + " Failed!");
+            getBattleData()->setExp(getBattleData()->getExp() + expRequired);
+            return false;
+        }
+    }
 }
