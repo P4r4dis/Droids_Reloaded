@@ -13,6 +13,49 @@ void    redirect_all_stdout(void) {
     cr_redirect_stderr();
 }
 
+static void testMemory()
+{
+    DroidMemory mem1;
+    mem1 += 42;
+    std::cout << mem1 << std::endl;
+    DroidMemory mem2;
+    mem2 << mem1;
+    mem2 >> mem1;
+    mem2 << mem1;
+    std::cout << mem2 << std::endl;
+    std::cout << mem1 << std::endl;
+    DroidMemory mem3 = mem1;
+    DroidMemory mem4;
+    mem4 = mem1 + mem3;
+}
+
+static void testDroids()
+{
+    Droid d("rudolf");
+    Droid d2("gaston");
+    size_t DuraSell = 40;
+
+    d << DuraSell;
+    d.setStatus (new std::string("having some reset"));
+    d2.setStatus(new std::string("having some reset!"));
+    if (d2 != d && !(d == d2))
+        std::cout << "a droid is a droid, all its matter is what it's doing" << std::endl;
+    
+    d.setStatus (new std::string("having some reset"));
+    d2.setStatus(new std::string("having some reset"));
+    d(new std::string("take a coffee"), 20);
+    std::cout << d << std::endl;
+    while (d(new std::string("Patrol around"), 20))
+    {
+        if (!d(new std::string("Shoot some ennemies"), 50))
+        {
+            d(new std::string("Run Away"), 20);
+        }
+        std::cout << d << std::endl;
+    }
+    std::cout << d << std::endl;
+}
+
 Test(Droid, test_Droid_constructor_with_parameters, .init = redirect_all_stdout)
 {
     {
@@ -207,9 +250,9 @@ Test(Droid, test_Droid_operator_brackets_overloading, .init = redirect_all_stdou
     }
     cr_assert_stdout_eq_str(
         "Droid 'rudolf' Activated\n"
-        "Droid 'rudolf', take a coffee Failed!, 80\n"
+        "Droid 'rudolf', take a coffee - Failed!, 80\n"
         "Droid 'rudolf', Battery Low, 0\n"
-        "Droid 'rudolf', take a coffee Completed!, 90\n"
+        "Droid 'rudolf', take a coffee - Completed!, 90\n"
         "Droid 'rudolf' Destroyed\n");
 }
 
@@ -483,4 +526,27 @@ Test(DroidMemory, test_DroidMemory_mainFunction, .init = redirect_all_stdout)
     cr_assert_stdout_eq_str("DroidMemory '1804289357', 42\n"
     "DroidMemory '1804289357', 126\n"
     "DroidMemory '846930886', 84\n");
+}
+
+Test(Ex2, test_main_Function, .init = redirect_all_stdout)
+{
+    {
+        testMemory();
+        testDroids();
+    }
+    cr_assert_stdout_eq_str(
+    "DroidMemory '1804289357', 42\n"
+    "DroidMemory '1804289357', 126\n"
+    "DroidMemory '846930886', 84\n"
+    "Droid 'rudolf' Activated\n"
+    "Droid 'gaston' Activated\n"
+    "a droid is a droid, all its matter is what it's doing\n"
+    "Droid 'rudolf', take a coffee - Failed!, 80\n"
+    "Droid 'rudolf', Run Away - Completed!, 50\n"
+    "Droid 'rudolf', Shoot some ennemies - Completed!, 30\n"
+    "Droid 'rudolf', Shoot some ennemies - Completed!, 10\n"
+    "Droid 'rudolf', Battery Low, 0\n"
+    "Droid 'gaston' Destroyed\n"
+    "Droid 'rudolf' Destroyed\n"
+    );
 }
