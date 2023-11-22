@@ -7,6 +7,7 @@ class                       DroidMemory
 {
     public:
         DroidMemory(void);
+        DroidMemory(const DroidMemory &obj);
         ~DroidMemory(void);
 
         size_t              getFingerprint(void) const;
@@ -21,6 +22,17 @@ class                       DroidMemory
         DroidMemory         &operator>>(DroidMemory &lhs) const;
         DroidMemory         &operator+(const DroidMemory &rhs) const;
         DroidMemory         &operator+(const size_t &rhs) const;
+        DroidMemory         &operator=(const DroidMemory &rhs);
+        bool                operator==(const DroidMemory &rhs) const;
+        bool                operator!=(const DroidMemory &rhs) const;
+        bool                operator<(const DroidMemory &rhs) const;
+        bool                operator>(const DroidMemory &rhs) const;
+        bool                operator<=(const DroidMemory &rhs) const;
+        bool                operator>=(const DroidMemory &rhs) const;
+        bool                operator<(const size_t &rhs) const;
+        bool                operator>(const size_t &rhs) const;
+        bool                operator<=(const size_t &rhs) const;
+        bool                operator>=(const size_t &rhs) const;
     private:
         size_t              Fingerprint;
         size_t              Exp;

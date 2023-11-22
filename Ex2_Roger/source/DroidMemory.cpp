@@ -4,6 +4,10 @@ DroidMemory::DroidMemory(void) :    Fingerprint(random()), Exp(0)
 {
 }
 
+DroidMemory::DroidMemory(const DroidMemory &obj) :  Fingerprint(obj.Fingerprint),
+                                                    Exp(obj.Exp)
+{}
+
 DroidMemory::~DroidMemory(void)
 {
 }
@@ -72,7 +76,65 @@ DroidMemory     &DroidMemory::operator+(const size_t &rhs) const
     return *mem;
 }
 
+DroidMemory     &DroidMemory::operator=(const DroidMemory &rhs)
+{
+    if (this != &rhs)
+    {
+        Exp = rhs.Exp;
+        Fingerprint = rhs.Fingerprint;
+    }
+    return *this;
+}
 
+bool            DroidMemory::operator==(const DroidMemory &rhs) const
+{
+    return (Exp == rhs.Exp) && (Fingerprint == rhs.Fingerprint);
+}
+
+bool            DroidMemory::operator!=(const DroidMemory &rhs) const
+{
+    return !(this == &rhs);
+}
+
+bool            DroidMemory::operator<(const DroidMemory &rhs) const
+{
+    return Exp < rhs.Exp;
+}
+
+bool            DroidMemory::operator>(const DroidMemory &rhs) const
+{
+    return !(Exp < rhs.Exp);
+}
+
+bool            DroidMemory::operator<=(const DroidMemory &rhs) const
+{
+    return Exp <= rhs.Exp;
+}
+
+bool            DroidMemory::operator>=(const DroidMemory &rhs) const
+{
+    return (Exp >= rhs.Exp);
+}
+
+bool            DroidMemory::operator<(const size_t &rhs) const
+{
+    return Exp < rhs;
+}
+
+bool            DroidMemory::operator>(const size_t &rhs) const
+{
+    return !(Exp < rhs);
+}
+
+bool            DroidMemory::operator<=(const size_t &rhs) const
+{
+    return Exp <= rhs;
+}
+
+bool            DroidMemory::operator>=(const size_t &rhs) const
+{
+    return (Exp >= rhs);
+}
 
 std::ostream    &operator<<(std::ostream &ostream, const DroidMemory &rhs)
 {
