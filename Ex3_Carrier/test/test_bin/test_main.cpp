@@ -552,63 +552,115 @@ Test(Ex2, test_main_Function, .init = redirect_all_stdout)
     );
 }
 
-Test(Carrier, test_Carrier_construction)//, .init = redirect_all_stdout)
+Test(Carrier, test_Carrier_construction, .init = redirect_all_stdout)
 {
-    Carrier c("HellExpress");
-
-    cr_assert(c.getId() == "HellExpress");
-    c.setId("HellExpress2");
-    cr_assert(c.getId() == "HellExpress2");
-
-    cr_assert(c.getEnergy() == 300);
-    c.setEnergy(301);
-    cr_assert(c.getEnergy() == 301);
-
-    cr_assert(c.getAttack() == 100);
-    cr_assert(c.getToughness() == 90);
-
-    cr_assert(c.getSpeed() == 0);
-    c.setSpeed(100);
-    cr_assert(c.getSpeed() == 100);
-    c.setSpeed(0);
-
-    Droid *d1 = new Droid("Commander");
-    Droid *d2 = new Droid("Sergent");
-    Droid *d3 = new Droid("Troufiont");
-    Droid *d4 = new Droid("Groupie");
-    Droid *d5 = new Droid("BeerHolder");
-
-    for (size_t i = 0; i < 5; i++)
     {
-        cr_assert(zero(type(Droid *), c.getDroid(i)));
-        switch (i)
-        {
-            case 0:
-                c.setDroid(i, d1);
-                break;
-            case 1:
-                c.setDroid(i, d2);
-                break;
-            case 2:
-                c.setDroid(i, d3);
-                break;
-            case 3:
-                c.setDroid(i, d4);
-                break;
-            case 4:
-                c.setDroid(i, d5);
-                break;
-        }
-        cr_assert(not(zero(type(Droid *), c.getDroid(i))));
-    }
-    // cr_assert(c.getSpeed() == 500);
+        Carrier c("HellExpress");
 
-    // std::cout << c.getDroid(0)->getId() << std::endl;
-    // cr_assert_stdout_eq_str(
-    //     "Droid 'Commander' Activated\n"
-    //     "Droid 'Sergent' Activated\n"
-    //     "Droid 'Troufiont' Activated\n"
-    //     "Droid 'Groupie' Activated\n"
-    //     "Droid 'BeerHolder' Activated\n"
-    // );
+        cr_assert(c.getId() == "HellExpress");
+        c.setId("HellExpress2");
+        cr_assert(c.getId() == "HellExpress2");
+
+        cr_assert(c.getEnergy() == 300);
+        c.setEnergy(301);
+        cr_assert(c.getEnergy() == 301);
+
+        cr_assert(c.getAttack() == 100);
+        cr_assert(c.getToughness() == 90);
+
+        cr_assert(c.getSpeed() == 0);
+        c.setSpeed(100);
+        cr_assert(c.getSpeed() == 100);
+        c.setSpeed(0);
+
+        Droid *d1 = new Droid("Commander");
+        Droid *d2 = new Droid("Sergent");
+        Droid *d3 = new Droid("Troufiont");
+        Droid *d4 = new Droid("Groupie");
+        Droid *d5 = new Droid("BeerHolder");
+
+        cr_assert(c.getNbDroid() == 0);
+        for (size_t i = 0; i < 5; i++)
+        {
+            cr_assert(zero(type(Droid *), c.getDroid(i)));
+            switch (i)
+            {
+                case 0:
+                    c.setDroid(i, d1);
+                    cr_assert(c.getNbDroid() == 1);
+                    break;
+                case 1:
+                    c.setDroid(i, d2);
+                    cr_assert(c.getNbDroid() == 2);
+                    break;
+                case 2:
+                    c.setDroid(i, d3);
+                    cr_assert(c.getNbDroid() == 3);
+                    break;
+                case 3:
+                    c.setDroid(i, d4);
+                    cr_assert(c.getNbDroid() == 4);
+                    break;
+                case 4:
+                    c.setDroid(i, d5);
+                    cr_assert(c.getNbDroid() == 5);
+                    break;
+            }
+            cr_assert(not(zero(type(Droid *), c.getDroid(i))));
+        }
+        c.setDroid(0, d1);
+        cr_assert(c.getNbDroid() == 5);
+        cr_assert(c.getSpeed() == 50);
+    }
+    cr_assert_stdout_eq_str(
+    "Droid 'Commander' Activated\n"
+    "Droid 'Sergent' Activated\n"
+    "Droid 'Troufiont' Activated\n"
+    "Droid 'Groupie' Activated\n"
+    "Droid 'BeerHolder' Activated\n"
+    "Droid 'Commander' Destroyed\n"
+    "Droid 'Sergent' Destroyed\n"
+    "Droid 'Troufiont' Destroyed\n"
+    "Droid 'Groupie' Destroyed\n"
+    "Droid 'BeerHolder' Destroyed\n");
+}
+
+Test(Carrier, test_Carrier_left_stream_operator_overloading, .init = redirect_all_stdout)
+{
+    {    
+        Carrier c("HellExpress");
+
+        Droid *d1 = new Droid("Commander");
+        Droid *d2 = new Droid("Sergent");
+        Droid *d3 = new Droid("Troufiont");
+        Droid *d4 = new Droid("Groupie");
+        Droid *d5 = new Droid("BeerHolder");
+
+        for (size_t i = 0; i < 5; i++)
+        {
+            cr_assert(zero(type(Droid *), c.getDroid(i)));
+        }
+
+        c << d1 << d2 << d3 << d4 << d5;
+
+        for (size_t i = 0; i < 5; i++)
+        {
+            cr_assert(not(zero(type(Droid *), c.getDroid(i))));
+        }
+
+        std::cout << c.getSpeed() << d1 << std::endl;
+    }
+    cr_assert_stdout_eq_str(
+    "Droid 'Commander' Activated\n"
+    "Droid 'Sergent' Activated\n"
+    "Droid 'Troufiont' Activated\n"
+    "Droid 'Groupie' Activated\n"
+    "Droid 'BeerHolder' Activated\n"
+    "500\n"
+    "Droid 'Commander' Destroyed\n"
+    "Droid 'Sergent' Destroyed\n"
+    "Droid 'Troufiont' Destroyed\n"
+    "Droid 'Groupie' Destroyed\n"
+    "Droid 'BeerHolder' Destroyed\n"
+    );
 }

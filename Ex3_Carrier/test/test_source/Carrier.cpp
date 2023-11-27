@@ -1,14 +1,16 @@
 #include "../test_include/Carrier.hpp"
 
 Carrier::Carrier(std::string id) :  Id(id), Energy(300), Attack(100),
-                                    Toughness(90), Speed(0)
+                                    Toughness(90), Speed(0), nbDroid(0)
 {
     for (int i = 0; i < 5; i++)
-    {
         droid[i] = nullptr;
-        if (droid[i] == nullptr)
-            Speed = 0;
-    }
+}
+
+Carrier::~Carrier(void)
+{
+    for (size_t i = 0; i < 5; i++)
+        delete droid[i];
 }
 
 // GETTERS AND SETTERS
@@ -52,26 +54,51 @@ void                Carrier::setSpeed(size_t speed)
     Speed = speed;
 }
 
-Droid               *Carrier::getDroid(size_t posDroid)
+size_t              Carrier::getNbDroid(void) const
+{
+    return nbDroid;
+}
+
+Droid               *Carrier::getDroid(size_t posDroid) const
 {
     return droid[posDroid];
 }
 
-void                Carrier::setDroid(size_t posDroid, Droid *&newDroid)
+void                Carrier::setDroid(size_t posDroid, Droid *newDroid)
 {
-    if (posDroid < 5)
+     if (posDroid < 5)
     {
-    // Remove the existing Droid at the position
-        if (droid[posDroid])
+        // Check if the new Droid is the same as the existing one
+        if (droid[posDroid] != newDroid)
         {
+            // Remove the existing Droid at the position
             delete droid[posDroid];
             droid[posDroid] = nullptr;
+
+            // Set the new Droid at the position without using copy constructor or assignment operator
+            droid[posDroid] = newDroid;
+
+            // Recalculate the number of Droids
+            nbDroid = 0;
+            for (size_t i = 0; i < 5; i++)
+            {
+                if (droid[i] != nullptr)
+                    nbDroid++;
+            }
         }
-
-    // Set the new Droid at the position
-        droid[posDroid] = new Droid(*newDroid);
-
-    // Update Speed based on the number of Droids on board
-        Speed = 100 - ((posDroid + 1) * 10);
+        // Update Speed based on the number of Droids on board
+        Speed = 100 - (nbDroid * 10);
     }
+}
+
+Carrier             &Carrier::operator<<(Droid *&rhs)
+{
+    if (nbDroid < 5 && droid[nbDroid] == nullptr)
+    {
+        droid[nbDroid] = rhs;
+        nbDroid++;
+        Speed = 100 - (nbDroid * 10);
+        rhs = nullptr;
+    }
+    return *this;
 }
