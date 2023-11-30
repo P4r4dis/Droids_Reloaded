@@ -155,7 +155,6 @@ bool            Droid::operator!=(const Droid &rhs) const
     return !(*this == rhs);
 }
 
-#include <memory>
 bool            Droid::operator()(const std::string *task, size_t expRequired)
 {
     size_t taskEnergyCost = 10;

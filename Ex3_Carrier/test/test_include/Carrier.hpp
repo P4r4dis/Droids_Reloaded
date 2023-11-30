@@ -27,6 +27,7 @@ class                   Carrier
         size_t          getNbDroid(void) const;
 
         Carrier         &operator<<(Droid *&rhs);
+        Carrier         &operator>>(Droid *&rhs);
 
     private:
         std::string     Id;

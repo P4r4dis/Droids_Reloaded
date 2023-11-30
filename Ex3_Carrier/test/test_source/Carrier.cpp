@@ -102,3 +102,19 @@ Carrier             &Carrier::operator<<(Droid *&rhs)
     }
     return *this;
 }
+
+Carrier             &Carrier::operator>>(Droid *&rhs)
+{   
+    Speed = 100 - (nbDroid * 10);
+    for (size_t i = 0; i < nbDroid; i++)
+    {
+        rhs = droid[i];
+        if (droid[i] != nullptr)
+        {
+            droid[i] = nullptr;
+            rhs = nullptr;
+            nbDroid--;
+        }
+    }
+    return *this;
+}
