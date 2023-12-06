@@ -126,3 +126,15 @@ Droid               *&Carrier::operator[](size_t index)
 {
     return droid[index];
 }
+
+Carrier             &Carrier::operator~(void)
+{
+    nbDroid = 0;
+    for (size_t i = 0; i < 5; i++)
+    {
+        if (droid[i])
+            nbDroid++;
+        Speed = 100 - (nbDroid * 10);
+    }
+    return *this;
+}
