@@ -635,20 +635,19 @@ Test(Carrier, test_Carrier_left_stream_operator_overloading, .init = redirect_al
         Droid *d3 = new Droid("Troufiont");
         Droid *d4 = new Droid("Groupie");
         Droid *d5 = new Droid("BeerHolder");
+        Droid *d6 = new Droid("BadTest");
+
 
         for (size_t i = 0; i < 5; i++)
-        {
             cr_assert(zero(type(Droid *), c.getDroid(i)));
-        }
 
         c << d1 << d2 << d3 << d4 << d5;
 
         for (size_t i = 0; i < 5; i++)
-        {
             cr_assert(not(zero(type(Droid *), c.getDroid(i))));
-        }
 
         std::cout << c.getSpeed() << d1 << std::endl;
+        c << d6;
     }
     cr_assert_stdout_eq_str(
     "Droid 'Commander' Activated\n"
@@ -656,6 +655,7 @@ Test(Carrier, test_Carrier_left_stream_operator_overloading, .init = redirect_al
     "Droid 'Troufiont' Activated\n"
     "Droid 'Groupie' Activated\n"
     "Droid 'BeerHolder' Activated\n"
+    "Droid 'BadTest' Activated\n"
     "500\n"
     "Droid 'Commander' Destroyed\n"
     "Droid 'Sergent' Destroyed\n"
@@ -676,21 +676,19 @@ Test(Carrier, test_Carrier_right_stream_operator_overloading, .init = redirect_a
         Droid *d3 = new Droid("Troufiont");
         Droid *d4 = new Droid("Groupie");
         Droid *d5 = new Droid("BeerHolder");
+        Droid *d6 = new Droid("BadTest");
+
 
         for (size_t i = 0; i < 5; i++)
-        {
             cr_assert(zero(type(Droid *), c.getDroid(i)));
-        }
 
         c << d1 << d2 << d3 << d4 << d5;
 
         for (size_t i = 0; i < 5; i++)
-        {
             cr_assert(not(zero(type(Droid *), c.getDroid(i))));
-        }
 
         std::cout << c.getSpeed() << d1 << std::endl;
-        c >> d1 >> d2 >> d3;
+        c >> d1 >> d2 >> d3 >> d4 >> d5 >> d6;
         std::cout << c.getSpeed() << std::endl;
         cr_assert(c.getSpeed() == 80);
         for (size_t i = 0; i < 5; i++)
@@ -708,8 +706,56 @@ Test(Carrier, test_Carrier_right_stream_operator_overloading, .init = redirect_a
     "Droid 'Troufiont' Activated\n"
     "Droid 'Groupie' Activated\n"
     "Droid 'BeerHolder' Activated\n"
+    "Droid 'BadTest' Activated\n"
     "500\n"
     "80\n"
+    "Droid 'Groupie' Destroyed\n"
+    "Droid 'BeerHolder' Destroyed\n"
+    );
+}
+
+Test(Carrier, test_Carrier_array_operator_overloading, .init = redirect_all_stdout)
+{
+    {    
+        Carrier c("HellExpress");
+
+        Droid *d1 = new Droid("Commander");
+        Droid *d2 = new Droid("Sergent");
+        Droid *d3 = new Droid("Troufiont");
+        Droid *d4 = new Droid("Groupie");
+        Droid *d5 = new Droid("BeerHolder");
+
+        for (size_t i = 0; i < 5; i++)
+            cr_assert(zero(type(Droid *), c.getDroid(i)));
+
+        c << d1 << d2 << d3 << d4 << d5;
+
+        for (size_t i = 0; i < 5; i++)
+            cr_assert(not(zero(type(Droid *), c.getDroid(i))));
+
+        std::cout << c.getSpeed() << d1 << std::endl;
+        c >> d1 >> d2 >> d3;
+        std::cout << c.getSpeed() << std::endl;
+        cr_assert(c.getSpeed() == 80);
+        for (size_t i = 0; i < 5; i++)
+        {
+            if (c.getDroid(i))
+                cr_assert(not(zero(type(Droid *), c.getDroid(i))));
+            else
+                cr_assert(zero(type(Droid *), c.getDroid(i)));
+        }
+        c[0] = d1;
+        cr_assert(c[0]->getId() == d1->getId());
+    }
+    cr_assert_stdout_eq_str(
+    "Droid 'Commander' Activated\n"
+    "Droid 'Sergent' Activated\n"
+    "Droid 'Troufiont' Activated\n"
+    "Droid 'Groupie' Activated\n"
+    "Droid 'BeerHolder' Activated\n"
+    "500\n"
+    "80\n"
+    "Droid 'Commander' Destroyed\n"
     "Droid 'Groupie' Destroyed\n"
     "Droid 'BeerHolder' Destroyed\n"
     );

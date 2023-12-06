@@ -1,7 +1,8 @@
 #include "../test_include/Carrier.hpp"
 
 Carrier::Carrier(std::string id) :  Id(id), Energy(300), Attack(100),
-                                    Toughness(90), Speed(0), nbDroid(0)
+                                    Toughness(90), Speed(0), droid(new Droid*[5]), nbDroid(0)
+                                    
 {
     for (int i = 0; i < 5; i++)
         droid[i] = nullptr;
@@ -66,7 +67,7 @@ Droid               *Carrier::getDroid(size_t posDroid) const
 
 void                Carrier::setDroid(size_t posDroid, Droid *newDroid)
 {
-     if (posDroid < 5)
+    if (posDroid < 5)
     {
         // Check if the new Droid is the same as the existing one
         if (droid[posDroid] != newDroid)
@@ -91,6 +92,7 @@ void                Carrier::setDroid(size_t posDroid, Droid *newDroid)
     }
 }
 
+
 Carrier             &Carrier::operator<<(Droid *&rhs)
 {
     if (nbDroid < 5 && droid[nbDroid] == nullptr)
@@ -99,22 +101,28 @@ Carrier             &Carrier::operator<<(Droid *&rhs)
         nbDroid++;
         Speed = 100 - (nbDroid * 10);
         rhs = nullptr;
+        return *this;
     }
     return *this;
 }
 
 Carrier             &Carrier::operator>>(Droid *&rhs)
 {   
-    Speed = 100 - (nbDroid * 10);
     for (size_t i = 0; i < nbDroid; i++)
     {
-        rhs = droid[i];
-        if (droid[i] != nullptr)
+        if (droid[i])
         {
+            rhs = droid[i];
             droid[i] = nullptr;
-            rhs = nullptr;
             nbDroid--;
+            Speed = 100 - (nbDroid * 10);
+            return *this;
         }
     }
     return *this;
+}
+
+Droid               *&Carrier::operator[](size_t index)
+{
+    return droid[index];
 }

@@ -28,6 +28,7 @@ class                   Carrier
 
         Carrier         &operator<<(Droid *&rhs);
         Carrier         &operator>>(Droid *&rhs);
+        Droid           *&operator[](size_t index);
 
     private:
         std::string     Id;
@@ -35,7 +36,8 @@ class                   Carrier
         const size_t    Attack;
         const size_t    Toughness;
         size_t          Speed;
-        Droid           *droid[5];
+        Droid           **droid;
         size_t          nbDroid;
 };
+
 #endif //               !__CARRIER_HPP__
