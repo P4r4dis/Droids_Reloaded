@@ -30,6 +30,7 @@ class                   Carrier
         Carrier         &operator>>(Droid *&rhs);
         Droid           *&operator[](size_t index);
         Carrier         &operator~(void);
+        bool            operator()(int x, int y);
 
     private:
         std::string     Id;

@@ -138,3 +138,16 @@ Carrier             &Carrier::operator~(void)
     }
     return *this;
 }
+
+bool                Carrier::operator()(int x, int y)
+{
+    size_t energyCost = (std::abs(x) + std::abs(y)) * (10 + nbDroid);
+    
+    if (Speed > 0 && Energy > energyCost)
+    {
+        Energy -= energyCost;
+        return true;
+    }
+    else
+        return false;
+}
