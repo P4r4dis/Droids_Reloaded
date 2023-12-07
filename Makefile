@@ -44,6 +44,17 @@ EX3_SRC_TEST			=	$(EX3_TST_PATH)/$(NAME_EX3)_test.cpp
 TEST_NAME_EX3 			= 	test_$(NAME_EX3)
 
 #################################################
+EX4_PATH 				= 	./Ex4_Factory
+EX4_SRC_PATH			=	./Ex4_Factory/source
+EX4_TST_PATH			=	./Ex4_Factory/test
+EX4_INC_PATH			=	./Ex4_Factory/include
+NAME_EX4				=	Ex4
+# EX0_SRC					=	$(EX0_SRC_PATH)/.cpp
+
+EX4_SRC_TEST			=	$(EX4_TST_PATH)/$(NAME_EX4)_test.cpp
+TEST_NAME_EX4 			= 	test_$(NAME_EX4)
+
+#################################################
 # OBJS					=	$(SRCS:.cpp=.o)
 CLEAN					=	clean
 FCLEAN					=	fclean
@@ -55,12 +66,14 @@ clean					:
 							@$(MAKE) $(CLEAN) -C $(EX1_TST_PATH)
 							@$(MAKE) $(CLEAN) -C $(EX2_TST_PATH)
 							@$(MAKE) $(CLEAN) -C $(EX3_TST_PATH)
+							@$(MAKE) $(CLEAN) -C $(EX4_TST_PATH)
 
 fclean					:	clean
 							$(RM) $(NAME) $(TEST_NAME_EX0)
 							$(RM) $(NAME) $(TEST_NAME_EX1)
 							$(RM) $(NAME) $(TEST_NAME_EX2)
 							$(RM) $(NAME) $(TEST_NAME_EX3)
+							$(RM) $(NAME) $(TEST_NAME_EX4)
 							@$(MAKE) $(FCLEAN) -C $(EX0_TST_PATH)
 							@$(MAKE) $(FCLEAN) -C $(EX0_PATH)
 							@$(MAKE) $(FCLEAN) -C $(EX1_TST_PATH)
@@ -69,6 +82,8 @@ fclean					:	clean
 							@$(MAKE) $(FCLEAN) -C $(EX2_PATH)
 							@$(MAKE) $(FCLEAN) -C $(EX3_TST_PATH)
 							@$(MAKE) $(FCLEAN) -C $(EX3_PATH)
+							@$(MAKE) $(FCLEAN) -C $(EX4_TST_PATH)
+							@$(MAKE) $(FCLEAN) -C $(EX4_PATH)
 
 re						: 	fclean all
 
@@ -87,6 +102,10 @@ Ex2 					: 	fclean
 Ex3 					: 	fclean
 							@$(MAKE) -C $(EX3_PATH)
 							$(EX3_PATH)/$(NAME_EX3)
+
+Ex4 					: 	fclean
+							@$(MAKE) -C $(EX4_PATH)
+							$(EX4_PATH)/$(NAME_EX4)
 
 test_run_Ex0			:	fclean
 							@$(MAKE) -C $(EX0_TST_PATH)
@@ -108,6 +127,12 @@ test_run_Ex3			:	fclean
 							$(EX3_TST_PATH)/$(TEST_NAME_EX3)
 							gcovr --exclude-unreachable-branches --exclude-throw-branches -r . --txt --html-details coverage.html
 
+test_run_Ex4			:	fclean
+							@$(MAKE) -C $(EX4_TST_PATH)
+							$(EX4_TST_PATH)/$(TEST_NAME_EX4)
+							gcovr --exclude-unreachable-branches --exclude-throw-branches -r . --txt --html-details coverage.html
+
+
 tests_run				:	fclean
 							@$(MAKE) tests_run_Ex0
 							@echo "Press Enter to continue to the next test (Ex1)..."
@@ -120,6 +145,9 @@ tests_run				:	fclean
 							@read dummy
 							@$(MAKE) tests_run_Ex3
 							@echo "Press Enter to continue to the next test (Ex4)..."
+							@read dummy
+							@$(MAKE) tests_run_Ex4
+							@echo "Press Enter to continue to the next test (Ex5)..."
 							@read dummy
 # @$(MAKE) tests_run_Ex1
 # @echo "Press Enter to continue to the next test (Ex2)..."
