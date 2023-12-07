@@ -167,3 +167,19 @@ std::ostream        &operator<<(std::ostream &os, const Carrier &obj)
         << obj.getEnergy();
     return os;
 }
+
+Carrier           &Carrier::operator<<(size_t &reload)
+{
+    size_t      diff;
+    size_t      max;
+
+    diff = 0;
+    max = 600;
+    diff = reload > max ? max - Energy : reload;
+    Energy += diff;
+    reload -= diff;
+    if (Energy > max)
+        Energy = max;
+
+    return *this;
+}

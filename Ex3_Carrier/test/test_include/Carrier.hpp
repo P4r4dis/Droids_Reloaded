@@ -31,7 +31,7 @@ class                   Carrier
         Droid           *&operator[](size_t index);
         Carrier         &operator~(void);
         bool            operator()(int x, int y);
-
+        Carrier         &operator<<(size_t &reload);
     private:
         std::string     Id;
         size_t          Energy;
