@@ -142,7 +142,6 @@ Carrier             &Carrier::operator~(void)
 bool                Carrier::operator()(int x, int y)
 {
     size_t energyCost = (std::abs(x) + std::abs(y)) * (10 + nbDroid);
-    
     if (Speed > 0 && Energy > energyCost)
     {
         Energy -= energyCost;
@@ -150,4 +149,21 @@ bool                Carrier::operator()(int x, int y)
     }
     else
         return false;
+}
+
+std::ostream        &operator<<(std::ostream &os, const Carrier &obj)
+{
+    os  << "Carrier '" << obj.getId() << "' Droid(s) on-board:" << std::endl;
+    for (size_t i = 0; i < 5; i++)
+    {
+        os  << "[" << i << "] : ";
+        if (obj.getDroid(i))
+            os << *obj.getDroid(i);
+        else
+            os << "Free";
+        os << std::endl;
+    }
+    os  << "Speed : " << obj.getSpeed() << ", Energy " 
+        << obj.getEnergy();
+    return os;
 }

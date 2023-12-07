@@ -42,4 +42,5 @@ class                   Carrier
         size_t          nbDroid;
 };
 
+std::ostream            &operator<<(std::ostream &os, const Carrier &obj);
 #endif //               !__CARRIER_HPP__
