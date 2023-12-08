@@ -5,7 +5,8 @@ TEST_INC_PATH = ./test_include
 TEST_BIN_PATH = ./test_bin
 TEST_SRC      = $(TEST_SRC_PATH)/Droid.cpp \
 				$(TEST_SRC_PATH)/DroidMemory.cpp \
-				$(TEST_SRC_PATH)/Carrier.cpp
+				$(TEST_SRC_PATH)/Carrier.cpp \
+				$(TEST_SRC_PATH)/Supply.cpp
 NAME          = test_Ex4
 #############################################
 

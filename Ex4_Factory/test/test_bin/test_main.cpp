@@ -8,6 +8,7 @@
 #include "../test_include/Droid.hpp"
 #include "../test_include/DroidMemory.hpp"
 #include "../test_include/Carrier.hpp"
+#include "../test_include/Supply.hpp"
 
 void    redirect_all_stdout(void) {
     cr_redirect_stdout();
@@ -1099,5 +1100,48 @@ Test(Carrier, test_Carrier_main_function, .init = redirect_all_stdout)
     "[4] : Free\n"
     "Speed : 90, Energy 13\n"
     "Droid 'Commander' Destroyed\n"
+    );
+}
+
+Test(Supply, test_ctor_dtor, .init = redirect_all_stdout)
+{
+    {
+        Droid **w = new Droid*[10];
+        char c = '0';
+
+        for (int i = 0; i < 3; ++i)
+            w[i] = new Droid(std::string("wreck: ") + (char)(c + i));
+
+        Supply s1(Supply::Silicon, 42);
+        cr_assert(s1.getType() == Supply::Silicon);
+        s1.setType(Supply::Iron);
+        cr_assert(s1.getType() == Supply::Iron);
+        s1.setType(Supply::Silicon);
+        cr_assert(s1.getAmount() == 42);
+        s1.setAmount(54);
+        cr_assert(s1.getAmount() == 54);
+        s1.setAmount(42);
+
+        Supply s2(Supply::Iron, 70);
+        Supply s3(Supply::Wreck, 3, w);
+        cr_assert(s3.getWreck() == w);
+        Droid **w2 = new Droid*[10];
+        s3.setWreck(w2);
+        cr_assert(s3.getWreck() == w2);
+        s3.setWreck(w);
+
+        for (size_t i = 0; i < 3; i++)
+        {
+            cr_assert(s3.getWreck(i) == w[i]);
+        }
+    }
+    cr_assert_stdout_eq_str
+    (
+        "Droid 'wreck: 0' Activated\n"
+        "Droid 'wreck: 1' Activated\n"
+        "Droid 'wreck: 2' Activated\n"
+        "Droid 'wreck: 0' Destroyed\n"
+        "Droid 'wreck: 1' Destroyed\n"
+        "Droid 'wreck: 2' Destroyed\n"
     );
 }
