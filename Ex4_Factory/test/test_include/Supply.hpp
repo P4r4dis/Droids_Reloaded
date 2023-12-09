@@ -28,10 +28,13 @@ class                   Supply
         Droid           *getWreck(size_t index) const;
         void            setWreck(Droid **wreck);
 
+        size_t          getNbWreck(void) const;
+
     private:
         Types           Type;
         size_t          Amount;
         Droid           **Wrecks;
+        size_t          nbWreck;
 };
 
 std::ostream          &operator<<(std::ostream &os, const Supply &obj);

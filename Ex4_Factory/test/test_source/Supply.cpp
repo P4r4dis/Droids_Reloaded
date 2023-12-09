@@ -2,12 +2,14 @@
 
 Supply::Supply(Supply::Types type, size_t amount)   :   Type(type),
                                                         Amount(amount),
-                                                        Wrecks(nullptr)
+                                                        Wrecks(nullptr),
+                                                        nbWreck(0)
 {}
 
 Supply::Supply(Supply::Types type, size_t amount, Droid **wreck) :   Type(type),
                                                                     Amount(amount),
-                                                                    Wrecks(wreck)
+                                                                    Wrecks(wreck),
+                                                                    nbWreck(0)
 {}
 
 Supply::~Supply(void)
@@ -22,6 +24,8 @@ Supply::~Supply(void)
         delete Wrecks;
     }
 }
+
+
 ////////////////Getters And Setters
 Supply::Types       Supply::getType(void) const
 {
@@ -63,6 +67,16 @@ void                Supply::setWreck(Droid **wreck)
     Wrecks = wreck;
 }
 
+size_t              Supply::getNbWreck(void) const
+{
+    size_t i = 0;
+
+    if (Wrecks)
+        while (Wrecks[i] != nullptr)
+            i++;
+    return i;
+}
+
 std::ostream        &operator<<(std::ostream &os, const Supply &obj)
 {    
     std::string type;
@@ -72,7 +86,17 @@ std::ostream        &operator<<(std::ostream &os, const Supply &obj)
         type = "Silicon";
     else
         type = "Wreck";
-    os << "Supply : " << obj.getType() << ", " << type;
 
+    os << "Supply : " << obj.getType() << ", " << type;
+    if (obj.getPtrWreck())
+    {
+        os << std::endl;
+        for (size_t i = 0; i < obj.getNbWreck(); i++)
+        {
+            os << *obj.getWreck(i);
+            if (i != obj.getNbWreck() - 1)
+                os << std::endl;
+        }
+    }
     return os;
 }
