@@ -43,9 +43,14 @@ void                Supply::setAmount(size_t amount)
     Amount = amount;
 }
 
-Droid               **Supply::getWreck(void) const
+Droid               **Supply::getPtrWreck(void) const
 {
     return Wrecks;
+}
+
+Droid               *Supply::getWreck(void) const
+{
+    return *Wrecks;
 }
 
 Droid               *Supply::getWreck(size_t index) const
@@ -56,4 +61,18 @@ Droid               *Supply::getWreck(size_t index) const
 void                Supply::setWreck(Droid **wreck)
 {
     Wrecks = wreck;
+}
+
+std::ostream        &operator<<(std::ostream &os, const Supply &obj)
+{    
+    std::string type;
+    if (obj.getType() == 1)
+        type = "Iron";
+    else if (obj.getType() == 2)
+        type = "Silicon";
+    else
+        type = "Wreck";
+    os << "Supply : " << obj.getType() << ", " << type;
+
+    return os;
 }

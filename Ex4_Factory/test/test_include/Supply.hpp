@@ -23,14 +23,17 @@ class                   Supply
         size_t          getAmount(void) const;
         void            setAmount(size_t amount);
 
-        Droid           **getWreck(void) const;
+        Droid           **getPtrWreck(void) const;
+        Droid           *getWreck(void) const;
         Droid           *getWreck(size_t index) const;
         void            setWreck(Droid **wreck);
 
-        size_t          getNbWreck(void) const;
     private:
         Types           Type;
         size_t          Amount;
         Droid           **Wrecks;
 };
+
+std::ostream          &operator<<(std::ostream &os, const Supply &obj);
+
 #endif //               !__SUPPLY_HPP__
