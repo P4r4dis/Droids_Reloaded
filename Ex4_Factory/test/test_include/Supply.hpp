@@ -30,6 +30,9 @@ class                   Supply
 
         size_t          getNbWreck(void) const;
 
+
+                        operator size_t(void) const;
+
     private:
         Types           Type;
         size_t          Amount;

@@ -6,22 +6,44 @@ Supply::Supply(Supply::Types type, size_t amount)   :   Type(type),
                                                         nbWreck(0)
 {}
 
-Supply::Supply(Supply::Types type, size_t amount, Droid **wreck) :   Type(type),
+Supply::Supply(Supply::Types type, size_t amount, Droid **wreck) :  Type(type),
                                                                     Amount(amount),
                                                                     Wrecks(wreck),
                                                                     nbWreck(0)
-{}
+{
+    if (Wrecks[nbWreck])
+    {
+        while (Wrecks[nbWreck])
+            nbWreck++;
+    }
+}
 
 Supply::~Supply(void)
 {
-    if (Type == Wreck)
+    // if (Type == Wreck)
+    // {
+    //     for (size_t i = 0; i < Amount; i++)
+    //     {
+    //         if (Wrecks && Wrecks[i])
+    //         {
+    //             delete Wrecks[i];
+    //             Wrecks[i] = nullptr;
+    //         }
+    //     }
+    //     delete [] Wrecks;
+    // }
+
+     if (Type == Wreck)
     {
         for (size_t i = 0; i < Amount; i++)
         {
-            if (Wrecks)
+            if (Wrecks && Wrecks[i])  // Check if Wrecks[i] is not nullptr
+            {
                 delete Wrecks[i];
+                Wrecks[i] = nullptr;  // Set the pointer to nullptr after deletion
+            }
         }
-        delete Wrecks;
+        delete [] Wrecks;  // Use delete[] for an array of pointers
     }
 }
 
@@ -69,12 +91,13 @@ void                Supply::setWreck(Droid **wreck)
 
 size_t              Supply::getNbWreck(void) const
 {
-    size_t i = 0;
+    // size_t i = 0;
 
-    if (Wrecks)
-        while (Wrecks[i] != nullptr)
-            i++;
-    return i;
+    // if (Wrecks)
+    //     while (Wrecks[i] != nullptr)
+    //         i++;
+    // return i;
+    return nbWreck;
 }
 
 std::ostream        &operator<<(std::ostream &os, const Supply &obj)
@@ -99,4 +122,9 @@ std::ostream        &operator<<(std::ostream &os, const Supply &obj)
         }
     }
     return os;
+}
+
+Supply::operator size_t(void) const
+{
+    return Amount;
 }
