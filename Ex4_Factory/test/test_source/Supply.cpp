@@ -9,14 +9,8 @@ Supply::Supply(Supply::Types type, size_t amount)   :   Type(type),
 Supply::Supply(Supply::Types type, size_t amount, Droid **wreck) :  Type(type),
                                                                     Amount(amount),
                                                                     Wrecks(wreck),
-                                                                    nbWreck(0)
-{
-    if (Wrecks[nbWreck])
-    {
-        while (Wrecks[nbWreck])
-            nbWreck++;
-    }
-}
+                                                                    nbWreck(amount)
+{}
 
 Supply::~Supply(void)
 {
@@ -91,12 +85,6 @@ void                Supply::setWreck(Droid **wreck)
 
 size_t              Supply::getNbWreck(void) const
 {
-    // size_t i = 0;
-
-    // if (Wrecks)
-    //     while (Wrecks[i] != nullptr)
-    //         i++;
-    // return i;
     return nbWreck;
 }
 
@@ -127,4 +115,14 @@ std::ostream        &operator<<(std::ostream &os, const Supply &obj)
 Supply::operator size_t(void) const
 {
     return Amount;
+}
+
+Droid               *&Supply::operator*(void) const
+{
+    return *Wrecks;
+}
+
+Droid               *&Supply::operator->(void) const
+{
+    return Wrecks[nbWreck - 1];
 }

@@ -30,8 +30,11 @@ class                   Supply
 
         size_t          getNbWreck(void) const;
 
+        operator size_t(void) const;
 
-                        operator size_t(void) const;
+        Droid           *&operator*(void) const;
+        Droid           *&operator->(void) const;
+
 
     private:
         Types           Type;
