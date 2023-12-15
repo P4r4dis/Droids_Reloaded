@@ -1147,7 +1147,7 @@ Test(Supply, test_ctor_dtor, .init = redirect_all_stdout)
         "Droid 'wreck: 2' Destroyed\n"
     );
 }
-
+// 
 Test(Supply, test_left_stream_operator_overloading, .init = redirect_all_stdout)
 {
     {
@@ -1192,8 +1192,8 @@ Test(Supply, test_left_stream_operator_overloading, .init = redirect_all_stdout)
         "Droid 'wreck: 0' Activated\n"
         "Droid 'wreck: 1' Activated\n"
         "Droid 'wreck: 2' Activated\n"
-        "Supply : 2, Silicon\n"
-        "Supply : 1, Iron\n"
+        "Supply : 42, Silicon\n"
+        "Supply : 70, Iron\n"
         "Supply : 3, Wreck\n"
         "Droid 'wreck: 0', Standing by, 50\n"
         "Droid 'wreck: 1', Standing by, 50\n"
@@ -1250,8 +1250,8 @@ Test(Supply, test_size_t, .init = redirect_all_stdout)
         "Droid 'wreck: 0' Activated\n"
         "Droid 'wreck: 1' Activated\n"
         "Droid 'wreck: 2' Activated\n"
-        "Supply : 2, Silicon\n"
-        "Supply : 1, Iron\n"
+        "Supply : 42, Silicon\n"
+        "Supply : 70, Iron\n"
         "Supply : 3, Wreck\n"
         "Droid 'wreck: 0', Standing by, 50\n"
         "Droid 'wreck: 1', Standing by, 50\n"
@@ -1311,8 +1311,8 @@ Test(Supply, test_pointer, .init = redirect_all_stdout)
         "Droid 'wreck: 0' Activated\n"
         "Droid 'wreck: 1' Activated\n"
         "Droid 'wreck: 2' Activated\n"
-        "Supply : 2, Silicon\n"
-        "Supply : 1, Iron\n"
+        "Supply : 42, Silicon\n"
+        "Supply : 70, Iron\n"
         "Supply : 3, Wreck\n"
         "Droid 'wreck: 0', Standing by, 50\n"
         "Droid 'wreck: 1', Standing by, 50\n"
@@ -1377,8 +1377,8 @@ Test(Supply, test_prefix_PlusPlus_operator_overloading, .init = redirect_all_std
         "Droid 'wreck: 0' Activated\n"
         "Droid 'wreck: 1' Activated\n"
         "Droid 'wreck: 2' Activated\n"
-        "Supply : 2, Silicon\n"
-        "Supply : 1, Iron\n"
+        "Supply : 42, Silicon\n"
+        "Supply : 70, Iron\n"
         "Supply : 3, Wreck\n"
         "Droid 'wreck: 0', Standing by, 50\n"
         "Droid 'wreck: 1', Standing by, 50\n"

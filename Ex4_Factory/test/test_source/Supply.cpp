@@ -103,11 +103,10 @@ std::ostream        &operator<<(std::ostream &os, const Supply &obj)
     else
         type = "Wreck";
 
-    os << "Supply : " << obj.getType() << ", " << type;
+    os << "Supply : " << obj.getAmount() << ", " << type;
     if (obj.getPtrWreck())
     {
         os << std::endl;
-        // for (size_t i = 0; i < obj.getNbWreck(); i++)
         for (size_t i = 0; i < obj.getAmount(); i++)
         {
             os << *obj.getWreck(i);
