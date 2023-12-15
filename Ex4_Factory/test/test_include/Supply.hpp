@@ -29,11 +29,14 @@ class                   Supply
         void            setWreck(Droid **wreck);
 
         size_t          getNbWreck(void) const;
+        void            setNbWreck(size_t nb);
 
         operator size_t(void) const;
 
         Droid           *&operator*(void) const;
-        Droid           *&operator->(void) const;
+        Droid           *operator->(void) const;
+        Supply          &operator++(void);
+        Supply          &operator--(void);
 
 
     private:

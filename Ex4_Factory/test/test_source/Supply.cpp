@@ -88,6 +88,11 @@ size_t              Supply::getNbWreck(void) const
     return nbWreck;
 }
 
+void                Supply::setNbWreck(size_t nb)
+{
+    nbWreck = nb;
+}
+
 std::ostream        &operator<<(std::ostream &os, const Supply &obj)
 {    
     std::string type;
@@ -102,7 +107,8 @@ std::ostream        &operator<<(std::ostream &os, const Supply &obj)
     if (obj.getPtrWreck())
     {
         os << std::endl;
-        for (size_t i = 0; i < obj.getNbWreck(); i++)
+        // for (size_t i = 0; i < obj.getNbWreck(); i++)
+        for (size_t i = 0; i < obj.getAmount(); i++)
         {
             os << *obj.getWreck(i);
             if (i != obj.getNbWreck() - 1)
@@ -119,10 +125,44 @@ Supply::operator size_t(void) const
 
 Droid               *&Supply::operator*(void) const
 {
-    return *Wrecks;
+    if (nbWreck <= 2)
+        return Wrecks[nbWreck];
+    else
+        return Wrecks[nbWreck - 1];
+    // std::cout << nbWreck << std::endl;
+    // return Wrecks[nbWreck];
 }
 
-Droid               *&Supply::operator->(void) const
+Droid               *Supply::operator->(void) const
 {
-    return Wrecks[nbWreck - 1];
+    // if (nbWreck == 0)
+    //     return Wrecks[nbWreck];
+    // else
+    //     return Wrecks[nbWreck - 1];
+    return this->operator*();
+}
+
+Supply              &Supply::operator++(void)
+{
+    if (Wrecks)
+    {
+        if (nbWreck >= Amount)
+            nbWreck = 0;
+        else
+            nbWreck++;
+
+    }
+    return *this;
+}
+
+Supply                  &Supply::operator--(void)
+{
+    if (Wrecks)
+    {
+        if (nbWreck <= 0)
+            nbWreck = Amount;
+        else
+            nbWreck--;
+    }
+    return *this;
 }
