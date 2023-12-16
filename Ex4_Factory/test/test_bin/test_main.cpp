@@ -1423,19 +1423,15 @@ Test(Supply, test_not_operator_overloading, .init = redirect_all_stdout)
         Supply s3(Supply::Wreck, 3, w);
         cr_assert(s3.getPtrWreck() == w);
         cr_assert(s3.getWreck() == *w);
-// 
         Droid **w2 = new Droid*[10];
         s3.setWreck(w2);
         cr_assert(s3.getPtrWreck() == w2);
         s3.setWreck(w);
-// 
         for (size_t i = 0; i < 3; i++)
             cr_assert(s3.getWreck(i) == w[i]);
-// 
         std::cout << s1 << std::endl;
         std::cout << s2 << std::endl;
         std::cout << s3 << std::endl;
-// 
         size_t s = s2;
         cr_assert(s == s2.getAmount());
         std::cout << s << std::endl;
@@ -1469,4 +1465,75 @@ Test(Supply, test_not_operator_overloading, .init = redirect_all_stdout)
         "Droid 'wreck: 2' Destroyed\n"
         "Supply : 0, Wreck\n"
     );
+}
+
+Test(Supply, test_Equal_comparaison_operator_overloading)//, .init = redirect_all_stdout)
+{
+    {
+        Droid **w = new Droid*[10];
+        char c = '0';
+
+        for (int i = 0; i < 3; ++i)
+            w[i] = new Droid(std::string("wreck: ") + (char)(c + i));
+
+        Supply s1(Supply::Silicon, 42);
+        cr_assert(s1.getType() == Supply::Silicon);
+        s1.setType(Supply::Iron);
+        cr_assert(s1.getType() == Supply::Iron);
+        s1.setType(Supply::Silicon);
+        cr_assert(s1.getAmount() == 42);
+        s1.setAmount(54);
+        cr_assert(s1.getAmount() == 54);
+        s1.setAmount(42);
+        Supply s2(Supply::Iron, 70);
+        Supply s3(Supply::Wreck, 3, w);
+        cr_assert(s3.getPtrWreck() == w);
+        cr_assert(s3.getWreck() == *w);
+        Droid **w2 = new Droid*[10];
+        s3.setWreck(w2);
+        cr_assert(s3.getPtrWreck() == w2);
+        s3.setWreck(w);
+        for (size_t i = 0; i < 3; i++)
+            cr_assert(s3.getWreck(i) == w[i]);
+
+        std::cout << s1 << std::endl;
+        std::cout << s2 << std::endl;
+        std::cout << s3 << std::endl;
+
+        size_t s = s2;
+        cr_assert(s == s2.getAmount());
+        std::cout << s << std::endl;
+        std::cout << *(*(--s3)) << std::endl;
+        std::cout << *(++s3)->getStatus() << std::endl;
+        ++s3;
+        *s3 = 0;
+        std::cout << *s3 << std::endl;
+        std::cout << s2 << std::endl;
+        std::cout << !s3 << std::endl;
+        cr_assert(s3.getAmount() == 0);
+        cr_assert(s3 == Supply::Wreck);
+        cr_assert(s3 != Supply::Iron);
+
+    }
+    
+    // cr_assert_stdout_eq_str
+    // (
+    //     "Droid 'wreck: 0' Activated\n"
+    //     "Droid 'wreck: 1' Activated\n"
+    //     "Droid 'wreck: 2' Activated\n"
+    //     "Supply : 42, Silicon\n"
+    //     "Supply : 70, Iron\n"
+    //     "Supply : 3, Wreck\n"
+    //     "Droid 'wreck: 0', Standing by, 50\n"
+    //     "Droid 'wreck: 1', Standing by, 50\n"
+    //     "Droid 'wreck: 2', Standing by, 50\n"
+    //     "70\n"
+    //     "Droid 'wreck: 2', Standing by, 50\n"
+    //     "Standing by\n"
+    //     "0\n"
+    //     "Supply : 70, Iron\n"
+    //     "Droid 'wreck: 0' Destroyed\n"
+    //     "Droid 'wreck: 2' Destroyed\n"
+    //     "Supply : 0, Wreck\n"
+    // );
 }

@@ -187,3 +187,12 @@ Supply                  &Supply::operator!(void)
     return *this;
 }
 
+bool                    Supply::operator==(const Types rhs)
+{
+    return Type == rhs;
+}
+
+bool                    Supply::operator!=(const Types rhs)
+{
+    return !(this->operator==(rhs));
+}
