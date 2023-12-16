@@ -37,7 +37,7 @@ class                   Supply
         Droid           *operator->(void) const;
         Supply          &operator++(void);
         Supply          &operator--(void);
-
+        Supply          &operator!(void);
 
     private:
         Types           Type;

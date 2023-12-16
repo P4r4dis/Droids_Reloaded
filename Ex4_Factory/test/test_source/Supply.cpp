@@ -9,24 +9,11 @@ Supply::Supply(Supply::Types type, size_t amount)   :   Type(type),
 Supply::Supply(Supply::Types type, size_t amount, Droid **wreck) :  Type(type),
                                                                     Amount(amount),
                                                                     Wrecks(wreck),
-                                                                    nbWreck(amount)
+                                                                    nbWreck(0) // amount
 {}
 
 Supply::~Supply(void)
 {
-    // if (Type == Wreck)
-    // {
-    //     for (size_t i = 0; i < Amount; i++)
-    //     {
-    //         if (Wrecks && Wrecks[i])
-    //         {
-    //             delete Wrecks[i];
-    //             Wrecks[i] = nullptr;
-    //         }
-    //     }
-    //     delete [] Wrecks;
-    // }
-
      if (Type == Wreck)
     {
         for (size_t i = 0; i < Amount; i++)
@@ -110,8 +97,12 @@ std::ostream        &operator<<(std::ostream &os, const Supply &obj)
         for (size_t i = 0; i < obj.getAmount(); i++)
         {
             os << *obj.getWreck(i);
-            if (i != obj.getNbWreck() - 1)
+            // std::cout << "DEBUG: " << "i = " << i << " nbWreck = " << obj.getNbWreck() << std::endl;
+            if (i < obj.getAmount() - 1)
+            {
+
                 os << std::endl;
+            }
         }
     }
     return os;
@@ -152,6 +143,14 @@ Supply              &Supply::operator++(void)
 
     }
     return *this;
+    //     if (Wrecks)
+    // {
+    //     if (nbWreck == Amount - 1)
+    //         nbWreck = 0;
+    //     else
+    //         nbWreck++;
+    // }
+    // return *this;
 }
 
 Supply                  &Supply::operator--(void)
@@ -164,4 +163,27 @@ Supply                  &Supply::operator--(void)
             nbWreck--;
     }
     return *this;
+    // if (Wrecks)
+    // {
+    //     nbWreck = (nbWreck + Amount) - 1;
+    // }
+    // return *this;
 }
+
+Supply                  &Supply::operator!(void)
+{
+    if (Type == Wreck)
+    {
+        for (size_t i = 0; i < Amount; i++)
+        {
+            delete Wrecks[i];
+            Wrecks[i] = nullptr;
+        }
+    }
+    delete [] Wrecks;
+    Wrecks = nullptr;
+    Amount = 0;
+
+    return *this;
+}
+
