@@ -52,17 +52,26 @@ void                Supply::setAmount(size_t amount)
 
 Droid               **Supply::getPtrWreck(void) const
 {
-    return Wrecks;
+    if (Wrecks)
+        return Wrecks;
+    else
+        return nullptr;
 }
 
 Droid               *Supply::getWreck(void) const
 {
-    return *Wrecks;
+    if (Wrecks)
+        return *Wrecks;
+    else
+        return nullptr;
 }
 
 Droid               *Supply::getWreck(size_t index) const
 {
-    return Wrecks[index];
+    if (Wrecks && Wrecks[index] != nullptr)
+        return Wrecks[index];
+    else
+        return nullptr;
 }
 
 void                Supply::setWreck(Droid **wreck)
