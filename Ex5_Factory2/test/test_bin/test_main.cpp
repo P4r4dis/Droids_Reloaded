@@ -1633,13 +1633,24 @@ Test(DroidFactory, test_DroidFactory_class_construction, .init = redirect_all_st
         factory2.setRatio(4);
         cr_assert(factory2.getRatio() == 4);
 
+        cr_assert(factory.getIron() == 0);
+        factory.setIron(4);
+        cr_assert(factory.getIron() == 4);
+
+        cr_assert(factory.getSilicon() == 0);
+        factory.setSilicon(4);
+        cr_assert(factory.getSilicon() == 4);
+
+        cr_assert(factory.getExp() == 0);
+        factory.setExp(4);
+        cr_assert(factory.getExp() == 4);
+
         DroidFactory factory3(factory2);
         cr_assert(factory3.getRatio() == factory2.getRatio());
 
         DroidFactory factory4;
         factory3 = factory4;
         cr_assert(factory4.getRatio() == factory3.getRatio());
-        // std::cout << *newbie << std::endl;
 
         Supply s1(Supply::Silicon, 42);
         cr_assert(s1.getType() == Supply::Silicon);
@@ -1666,3 +1677,61 @@ Test(DroidFactory, test_DroidFactory_class_construction, .init = redirect_all_st
         "Droid 'wreck: 2' Destroyed\n"
     );
 }
+
+// Test(DroidFactory,
+//         test_DroidFactory_right_stream_operator_overloading_construction_Droid,
+// )//.init = redirect_all_stdout)
+// {
+//     {
+//         DroidFactory factory(3);
+//         DroidFactory factory2;
+//         Droid **w = new Droid*[10];
+//         Droid *newbie = nullptr;
+//         char c = '0';
+
+//         for (int i = 0; i < 3; ++i)
+//         {
+//             w[i] = new Droid(std::string("wreck: ") + (char)(c + i));
+//             *(w[i]->getBattleData()) += (i * 100);
+//         }
+
+//         cr_assert(factory.getRatio() == 3);
+//         cr_assert(factory2.getRatio() == 2);
+//         factory2.setRatio(4);
+//         cr_assert(factory2.getRatio() == 4);
+
+//         DroidFactory factory3(factory2);
+//         cr_assert(factory3.getRatio() == factory2.getRatio());
+
+//         DroidFactory factory4;
+//         factory3 = factory4;
+//         cr_assert(factory4.getRatio() == factory3.getRatio());
+
+//         Supply s1(Supply::Silicon, 42);
+//         cr_assert(s1.getType() == Supply::Silicon);
+//         s1.setType(Supply::Iron);
+//         cr_assert(s1.getType() == Supply::Iron);
+//         s1.setType(Supply::Silicon);
+//         cr_assert(s1.getAmount() == 42);
+//         s1.setAmount(54);
+//         cr_assert(s1.getAmount() == 54);
+//         s1.setAmount(42);
+//         Supply s2(Supply::Iron, 70);
+//         Supply s3(Supply::Wreck, 3, w);
+//         cr_assert(s3.getPtrWreck() == w);
+//         cr_assert(s3.getWreck() == *w);
+
+//         factory >> newbie;
+//         std::cout << newbie << std::endl;
+//     }
+    
+//     // cr_assert_stdout_eq_str
+//     // (
+//     //     "Droid 'wreck: 0' Activated\n"
+//     //     "Droid 'wreck: 1' Activated\n"
+//     //     "Droid 'wreck: 2' Activated\n"
+//     //     "Droid 'wreck: 0' Destroyed\n"
+//     //     "Droid 'wreck: 1' Destroyed\n"
+//     //     "Droid 'wreck: 2' Destroyed\n"
+//     // );
+// }
