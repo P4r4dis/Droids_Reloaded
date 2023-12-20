@@ -11,7 +11,7 @@ class                   DroidFactory
         ~DroidFactory(void);
 
         DroidFactory    &operator=(const DroidFactory &obj);
-        Droid           *operator>>(Droid *obj);
+        Droid           *operator>>(Droid *&obj);
 
         size_t          getRatio(void) const;
         void            setRatio(size_t ratio);

@@ -15,7 +15,13 @@ DroidFactory::~DroidFactory(void)
 
 DroidFactory            &DroidFactory::operator=(const DroidFactory &obj)
 {
-    _ratio = obj._ratio;
+    if (this != &obj)
+    {
+        _ratio = obj._ratio;
+        _Iron = obj._Iron;
+        _Silicon = obj._Silicon;
+        _Exp = obj._Exp;
+    }
     return *this;
 }
 
@@ -59,6 +65,19 @@ void                    DroidFactory::setExp(size_t exp)
     _Exp = exp;
 }
 
-// Droid                   *DroidFactory::operator>>(Droid *obj)
-// {
-// }
+Droid                   *DroidFactory::operator>>(Droid *&obj)
+{
+    if (_Iron >= 100 && _Silicon >= 50)
+    {
+        _Iron -= 80;
+        _Silicon -= 50;
+        _Exp = _Exp - (_Exp / _ratio); // maybe false
+        obj = new Droid("");
+        return obj;
+    }
+    else
+    {
+        obj = nullptr;
+        return obj;
+    }
+}
