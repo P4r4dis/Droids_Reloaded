@@ -38,12 +38,6 @@ class                   DroidFactory
         size_t          _Exp;
 };
 
-// std::ostream& operator<<(std::ostream& os, const DroidFactory& factory) {
-//     os << "DroidFactory status report :" << std::endl;
-//     os << "Iron : " << factory.getIron() << std::endl;
-//     os << "Silicon : " << factory.getSilicon() << std::endl;
-//     os << "Exp : " << factory.getExp() << std::endl;
-//     os << "End of status report.";
-//     return os;
-// }
+std::ostream&           operator<<(std::ostream& os, const DroidFactory& factory);
+
 #endif //               !__DROIDFACTORY_HPP__
