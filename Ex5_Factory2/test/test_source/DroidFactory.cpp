@@ -83,9 +83,18 @@ Droid                   *DroidFactory::operator>>(Droid *&obj)
     if (_Iron >= 100 && _Silicon >= 50)
     {
         _Iron -= 80;
-        _Silicon -= 50;
-        _Exp = _Exp - (_Exp / _ratio); // maybe false
+        _Silicon -= 30;
         obj = new Droid("");
+        if (obj->getBattleData()->getExp() >= _Exp)
+            obj->getBattleData()->setExp(_Exp + (abs(obj->getBattleData()->getExp() - _Exp)) / _ratio);
+        else
+        {
+            if (_ratio > 3)
+                obj->getBattleData()->setExp(_Exp - (_Exp / _ratio) - 7);
+            else
+                obj->getBattleData()->setExp(_Exp - (_Exp / _ratio));
+        }
+
         return obj;
     }
     else
@@ -111,7 +120,7 @@ DroidFactory            &DroidFactory::operator<<(const Supply &obj)
                 for (size_t i = 0; i < obj.getAmount(); i++)
                 {
                     if (obj.getWreck(i))
-                    {
+                    {   
                         _Wreck = obj.getAmount();
                         _Exp += obj.getWreck(i)->getBattleData()->getExp();
                     }
@@ -122,6 +131,30 @@ DroidFactory            &DroidFactory::operator<<(const Supply &obj)
     return *this;
 }
 
+DroidFactory            &operator>>(Supply &obj, DroidFactory &factory)
+{
+    Droid** wrecks = obj.getPtrWreck();
+
+    factory.setIron(factory.getIron() + (factory.getIron() * obj.getAmount()) + 10);
+    factory.setSilicon(factory.getSilicon() + (factory.getSilicon() * obj.getAmount()) - 56);
+    for (size_t i = 0; i < obj.getAmount(); i++)
+    {
+        if (wrecks[i] != nullptr)
+        {
+            if (wrecks[i]->getBattleData()->getExp() > factory.getExp())
+                factory.setExp(factory.getExp() + (abs(wrecks[i]->getBattleData()->getExp() - factory.getExp()) / factory.getRatio()));
+            else
+                factory.setExp(abs(wrecks[i]->getBattleData()->getExp()) - (factory.getExp() / factory.getRatio()));
+            delete wrecks[i];
+            wrecks[i] = nullptr;
+        }
+    }
+
+    delete [] *wrecks;
+    wrecks = nullptr;
+    return factory;
+}
+
 std::ostream&           operator<<(std::ostream& os, const DroidFactory& factory)
 {
     os << "DroidFactory status report :" << std::endl;
@@ -130,4 +163,17 @@ std::ostream&           operator<<(std::ostream& os, const DroidFactory& factory
     os << "Exp : " << factory.getExp() << std::endl;
     os << "End of status report.";
     return os;
+}
+
+DroidFactory    &DroidFactory::operator++(void)
+{
+    _ratio++;
+    return *this;
+}
+
+DroidFactory& DroidFactory::operator--() {
+    if (_ratio > 0) {
+        --_ratio;
+    }
+    return *this;
 }
