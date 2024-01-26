@@ -13,14 +13,13 @@ class                   DroidFactory
 
         DroidFactory    &operator=(const DroidFactory &obj);
         Droid           *operator>>(Droid *&obj);
-        // DroidFactory    &operator>>(Supply &obj);
         DroidFactory    &operator<<(const Supply &obj);
 
         //////////////////////
         DroidFactory    &operator++(void);
-        DroidFactory operator++(int);
+        DroidFactory    operator++(int);
         DroidFactory    &operator--(void);
-        DroidFactory operator--(int);
+        DroidFactory     operator--(int);
 
         size_t          getRatio(void) const;
         void            setRatio(size_t ratio);
